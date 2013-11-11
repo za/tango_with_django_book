@@ -9,6 +9,8 @@ Chapter 2
 Chapter 5
 - take population script from rst put it into the code base
 - update the screen shot of the admin interface
+- by @ramdog and @jonathan-s - should we look at an additional chapter at the end (or section) detailing how to setup up Postgres instead of SQLite? It shouldn't take very long...
+- by @jonathan-s - look at South for database handling? Or is this out of scope?
 
 Chapter 7
 - Courtesy of Can Obanoglu - In 7.2.1, we start a paragraph with "Besides the CharField and IntegerField widget, many more are available for use." It would be a good idea to add some more fields to our models that use something OTHER than the trivial IntegerField. So maybe we could add a DatePicker or something to specify when an instance was created or something? A good idea!
