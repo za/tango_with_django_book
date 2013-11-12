@@ -399,13 +399,13 @@ Now that you've completed the chapter, try out these exercises to reinforce and 
 * Undertake the `part two of official Django tutorial <https://docs.djangoproject.com/en/1.5/intro/tutorial02/>`_ if you have not done so. This will help to reinforce further what you have learnt here, and to learn more about customising the admin interface.
 * Customise the Admin Interface - so that when you view the Page model it displays in a list the category, the name of the page and the url.
 
-Hint
-....
+Hints
+.....
 If you require some help or inspiration to get these exercises done, these hints will hopefully help you out.
 
-* To customise the admin interface, you will need to edit ``rango/admin.py`` and create a PageAdmin class that inherits from admin.ModelAdmin. 
-* Then set ``list_display = ('title', 'category', 'url')`` in the PageAdmin class
-* Finally, register it with Django's admin interface by modifying the line ``admin.site.register(Page)`` to ``admin.site.register(Page, PageAdmin)`` in your app's ``admin.py`` file.
+* To customise the admin interface, you will need to edit ``rango/admin.py`` and create a ``PageAdmin`` class that inherits from ``admin.ModelAdmin``. 
+* Within your new ``PageAdmin`` class, add ``list_display = ('title', 'category', 'url')``.
+* Finally, register the ``PageAdmin`` class with Django's admin interface. You should modify the line ``admin.site.register(Page)``. Change it to ``admin.site.register(Page, PageAdmin)`` in Rango's ``admin.py`` file.
 
 .. _fig-admin-customised:
 
