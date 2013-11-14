@@ -274,7 +274,7 @@ We then pass the list of categories - ``category_list`` - to the context of the 
 	                {% endfor %}
 	            </ul>
 	       {% else %}
-	            <strong>No categories at present.</strong>
+	            <strong>There are no categories present.</strong>
 	       {% endif %}
 
 	    </body>
