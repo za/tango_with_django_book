@@ -7,8 +7,6 @@ Chapter 2
 		- chapter probably needs some considerable work.
 
 Chapter 5
-- take population script from rst put it into the code base
-- update the screen shot of the admin interface
 - by @ramdog and @jonathan-s - should we look at an additional chapter at the end (or section) detailing how to setup up Postgres instead of SQLite? It shouldn't take very long...
 - by @jonathan-s - look at South for database handling? Or is this out of scope?
 
