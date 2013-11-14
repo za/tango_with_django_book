@@ -75,7 +75,7 @@ With the view updated, all that is left for us to do is update the template ``ra
 	                {% endfor %}
 	            </ul>
 	        {% else %}
-	            <strong>No categories at present.</strong>
+	            <strong>There are no categories present.</strong>
 	        {% endif %}
 	        
 	        <a href="/rango/about/">About</a>
