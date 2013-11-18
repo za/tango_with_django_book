@@ -4,14 +4,14 @@ User Authentication
 ===================
 The aim of this next part of the tutorial is to get you familiar with the user authentication mechanisms provided by Django. We'll by using the ``auth`` application provided as part of a standard Django installation in package ``django.contrib.auth``. According to `Django's official documentation on Authentication <https://docs.djangoproject.com/en/1.5/topics/auth/>`_, the application consists of the following aspects.
 
-- Users.
-- Permissions: a series of binary flags (e.g. yes/no) determining what a user may or may not do.
-- Groups: a method of applying permissions to more than one user.
-- A configurable password hashing system: a must for ensuring data security.
-- Forms and view tools for logging in users, or restricting content.
-- A pluggable backend system.
+- *Users.*
+- *Permissions:* a series of binary flags (e.g. yes/no) determining what a user may or may not do.
+- *Groups:* a method of applying permissions to more than one user.
+- A configurable *password hashing system:* a must for ensuring data security.
+- *Forms and view tools for logging in users,* or restricting content.
+- A *pluggable backend system,* allowing you to provide your own authentication-related functionality.
 
-There's lots that Django can do for you in the area of user authentication. We'll be covering the basics to get your started.
+There's lots that Django can do for you in the area of user authentication. We'll be covering the basics to get you started. This'll help you build your confidence with the available tools and their underlying concepts.
 
 Setting up Authentication
 -------------------------
@@ -35,7 +35,7 @@ Within the ``settings.py`` file find the ``INSTALLED_APPS`` tuple and check that
 	    'rango',
 	)
 
-While ``django.contrib.auth`` provides Django with access to the authentication system, ``django.contrib.contenttypes`` is used by the authentication application to track models installed in your database. 
+While ``django.contrib.auth`` provides Django with access to the authentication system, ``django.contrib.contenttypes`` is used by the authentication application to track models installed in your database. Check out the `Official Django documentation for more details <https://docs.djangoproject.com/en/1.5/ref/contrib/contenttypes/>`_ on what ``django.contrib.contenttypes`` is and does to make your life easier.
 
 .. note:: Remember, if you had to add either one of the ``auth`` or ``contenttypes`` applications to your ``INSTALLED_APPS`` tuple, you will need to resynchronise your database with the ``$ python manage.py syncdb`` command.
 
@@ -111,7 +111,7 @@ You also need to import the ``UserProfile`` model by adding one of the following
 	# If you choose this option, you'll want to modify the import statement you've already got to include UserProfile.
 	from rango.models import Category, Page, UserProfile
 
-.. note:: Remember that with the creation of a new model, you must synchronise your database. Run ``$ python manage.py syncdb`` from your terminal to synchronise the new ``UserProfile`` model. Not doing so will result in errors explaining that the required database tables cannot be found.
+.. note:: Remember that your database must be synchronised with the creation of a new model. Run ``$ python manage.py syncdb`` from your terminal to synchronise the new ``UserProfile`` model. This process involves Django creating one or more underlying database tables for the given model. Forgetting to synchronise your changes will result in errors explaining that the required database tables cannot be found.
 
 Creating a *User Registration* View and Template
 ------------------------------------------------
