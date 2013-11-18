@@ -276,7 +276,6 @@ To create a population script for Rango's database, we start by creating a new P
 .. code-block:: python
 	
 	import os
-	import sys
 	
 	def populate():
 	    python_cat = add_cat('Python')
