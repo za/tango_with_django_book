@@ -134,7 +134,7 @@ After this process has been completed you will be able to see a new file called 
 
 Generated SQL 
 -------------
-The database synchronisation process essentially converts the Django models into SQL tables. To see the SQL that is produced, you can run the command ``python manage.py sql rango``. This will output the SQL code that was issued to the database backend on your behalf. Notice that while we did not specify an ``id'' attribute in our model, Django automatically assigns an ``id`` to every model. You should also note that in the ``rango_page`` table, the reference to ``Category`` is created as a foreign key.
+The database synchronisation process essentially converts the Django models into SQL tables. To see the SQL that is produced, you can run the command ``python manage.py sql rango``. This will output the SQL code that was issued to the database backend on your behalf. Notice that while we did not specify an ``id`` attribute in our model, Django automatically assigns an ``id`` to every model. You should also note that in the ``rango_page`` table, the reference to ``Category`` is created as a foreign key.
 
 .. code-block:: sql
 	
