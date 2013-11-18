@@ -111,7 +111,7 @@ You also need to import the ``UserProfile`` model by adding one of the following
 	# If you choose this option, you'll want to modify the import statement you've already got to include UserProfile.
 	from rango.models import Category, Page, UserProfile
 
-.. note:: Remember that with the creation of a new model, you must synchronise your database. Run ``$ python manage.py syncb`` from your terminal to synchronise the new ``UserProfile`` model. Not doing so will result in errors explaining that the required database tables cannot be found.
+.. note:: Remember that with the creation of a new model, you must synchronise your database. Run ``$ python manage.py syncdb`` from your terminal to synchronise the new ``UserProfile`` model. Not doing so will result in errors explaining that the required database tables cannot be found.
 
 Creating a *User Registration* View and Template
 ------------------------------------------------
