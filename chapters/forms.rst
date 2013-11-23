@@ -235,7 +235,7 @@ Within the ``clean()`` method, a simple pattern is observed which you can replic
 
 This trivial example shows how we can clean the data being passed through the form before being stored. This is pretty handy, especially when particular fields need to have default values - or data within the form is missing, and we need to handle such data entry problems.
 
-.. note:: Overriding methods that Django provides can provide you with an elegant way to add that extra but of functionality for your application. There are many methods which can you can safely override for your benefit, just like the ``clean()`` method in ``ModelForm`` as shown above. Check out `the Official Django Documentation on Models <https://docs.djangoproject.com/en/1.5/topics/db/models/#overriding-predefined-model-methods>`_ for more examples on how you can override default functionality to slot your own in.
+.. note:: Overriding methods that Django provides can provide you with an elegant way to add that extra bit of functionality for your application. There are many methods which can you can safely override for your benefit, just like the ``clean()`` method in ``ModelForm`` as shown above. Check out `the Official Django Documentation on Models <https://docs.djangoproject.com/en/1.5/topics/db/models/#overriding-predefined-model-methods>`_ for more examples on how you can override default functionality to slot your own in.
 
 Exercises
 ---------
