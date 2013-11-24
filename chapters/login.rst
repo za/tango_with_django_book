@@ -393,7 +393,7 @@ All of these functions and classes are provided by Django, and as such you'll ne
 .. code-block:: python
 	
 	from django.contrib.auth import authenticate, login
-	from django.http import HttpResponseRedirect
+	from django.http import HttpResponseRedirect, HttpResponse
 
 Creating a *Login* Template
 ...........................
