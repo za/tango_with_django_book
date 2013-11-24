@@ -374,7 +374,7 @@ In ``rango/views.py`` create a new function called ``user_login()`` and add the 
 	        # blank dictionary object...
 	        return render_to_response('rango/login.html', {}, context)
 
-This view may seem rather complicated as it has to handle a variety of situations. Like in previous examples before, the ``user_login()`` view handles form rendering and processing. 
+This view may seem rather complicated as it has to handle a variety of situations. Like in previous examples, the ``user_login()`` view handles form rendering and processing. 
 
 First, if the view is accessed via the HTTP GET method, then the login form is displayed. However, if the form has been posted via the HTTP POST method, then we can handle processing the form.
 
