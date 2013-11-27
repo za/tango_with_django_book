@@ -61,7 +61,7 @@ By adding it to a file we can minimise the code in our template. Now update the 
 	    <title>Rango - {% block title %}How to Tango with Django!{% endblock %}</title>
 	</head>
 
-Note how we are including all these files through by externally linking them in. We will also need to include the js files. Instead of adding them to the ``<head>`` section, we will added them in at the bottom of ``base.html`` just before we close the ``<body>`` tag, just like in the example below.
+Note how we are including all these files by externally linking them in. We will also need to include the js files. Instead of adding them to the ``<head>`` section, we will add them at the bottom of ``base.html`` just before we close the ``<body>`` tag, just like in the example below.
 
 .. code-block:: html
 	
