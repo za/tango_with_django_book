@@ -22,7 +22,7 @@ Now go to the `JQuery website <http://jquery.com>`_ and download the latest 2.x 
 
 Including CSS/JS in The Base Template
 .....................................
-If you download or look at the source for http://getbootstrap.com/2.3.2/examples/fluid.html, you'll notice that in the ``<head>`` section there is some additional ``<style>`` code. Copy the CSS inside these style tags and create a new CSS file in ``/static/css/`` called ``boostrap-fluid-adj.css``. Your code should look similar to the example shown below.
+If you download or look at the source for http://getbootstrap.com/2.3.2/examples/fluid.html, you'll notice that in the ``<head>`` section there is some additional ``<style>`` code. Copy the CSS inside these style tags and create a new CSS file in ``/static/css/`` called ``bootstrap-fluid-adj.css``. Your code should look similar to the example shown below.
 
 .. code-block:: css
 	
