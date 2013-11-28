@@ -61,7 +61,7 @@ By adding it to a file we can minimise the code in our template. Now update the 
 	    <title>Rango - {% block title %}How to Tango with Django!{% endblock %}</title>
 	</head>
 
-Note how we are including all these files by externally linking them in. We will also need to include the js files. Instead of adding them to the ``<head>`` section, we will add them at the bottom of ``base.html`` just before we close the ``<body>`` tag, just like in the example below.
+Note how we are including all these files by externally linking them in. We will also need to include the JQuery and Bootstrap JavaScript files. Instead of adding them to the ``<head>`` section, we will add them at the bottom of ``base.html`` just before we close the ``<body>`` tag, just like in the example below.
 
 .. code-block:: html
 	
@@ -70,7 +70,7 @@ Note how we are including all these files by externally linking them in. We will
 	</body>
 	</html>
 
-The reason to add them here is so that the page can load up faster.
+The reason to add them here is so that the page can load up faster. The browser concentrates on rendering the elements of the webpage, and once this has been completed, the JavaScript files are loaded.
 
 Structuring the Base Template
 .............................
