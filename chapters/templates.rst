@@ -197,13 +197,13 @@ Now that we inherit from ``base.html``, all that exists within the ``category.ht
 
  	Templates are very powerful and you can even create your own template tags. Here we have shown how we can minimise the repetition of structure HTML in our templates.
 
-	However, templates can also be used to minimise code within views. For example, if you had a list of items generated from a database table that you would like to be presented on each page, it is then possible to construct templates that make the call to a specific view to render that part of the page. This saves you from calling the functions to retrieve the data and passing that data to the template for every view that displays that list.
+	However, templates can also be used to minimise code within your application's views. For example, if you wanted to include the same database-driven content on each page of your application, you could construct a template that calls a specific view to handle the repeating portion of your webpages. This then saves you from having to call the Django ORM functions which gather the required data for the template in every view that renders it.
 	
 	To learn more about the extensive functionality offered by Django's template language, check out the official `Django documentation on templates <https://docs.djangoproject.com/en/1.5/topics/templates/>`_. 
 
 Exercises
 ---------
-Now that you've worked through this chapter, we've got several exercises for you to work through. After completing them, you'll be a Django templating messiah.
+Now that you've worked through this chapter, we've got several exercises for you to work through. After completing them, you'll be a Django templating pro.
 
 * Update all other existing templates within Rango's repertoire to extend from the ``rango/base.html`` template. Follow the same process as we demonstrated above. Once completed, your templates should all inherit from ``base.html``, as demonstrated in Figure :num:`fig-rango-template-inheritance`. While you're at it, make sure you remove the links from our ``index.html`` template. We don't need them anymore! You can also remove the link to Rango's homepage within the ``about.html`` template.
 * Convert the restricted page to use a template. Call the template ``restricted.html``, and ensure that it too extends from our ``base.html`` template.
