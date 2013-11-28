@@ -124,7 +124,7 @@ You can then update the ``index()`` view function as follows. Check out the inli
 	    
 	    # Construct a dictionary to pass to the template engine as its context.
 	    # Note the key boldmessage is the same as {{ boldmessage }} in the template!
-	    context_dict = {'boldmessage': "I am from the context"}
+	    context_dict = {'boldmessage': "I am bold font from the context"}
 	    
 	    # Return a rendered response to send to the client.
 	    # We make use of the shortcut function to make our lives easier.
@@ -133,7 +133,7 @@ You can then update the ``index()`` view function as follows. Check out the inli
 
 In our updated view, we use the ``RequestContext`` class to gain access to settings related to the user's ``request``. We then create a dictionary to store any data we want to send through to the template, then finally call the ``render_to_response()`` helper function. We pass as parameters the template we wish to use, the dictionary with our template variables, and the context we obtained from the user's ``request``. The ``render_to_response()`` function will take this data and mash it together with the template to produce a complete HTML page. This is then returned and dispatched to the user's web browser.
 
-When a template file is loaded with the Django templating system, a *template context* is created. In simple terms, a template context is essentially a Python dictionary that maps template variable names with Python variables. In the template we created earlier, we included a template variable name called ``boldmessage``. In our ``index(request)`` view example, the string ``I am from the context`` is mapped to template variable ``boldmessage``. The string ``I am from the context`` therefore replaces any instance of ``{{ boldmessage }}`` within the template.
+When a template file is loaded with the Django templating system, a *template context* is created. In simple terms, a template context is essentially a Python dictionary that maps template variable names with Python variables. In the template we created earlier, we included a template variable name called ``boldmessage``. In our ``index(request)`` view example, the string ``I am bold font from the context`` is mapped to template variable ``boldmessage``. The string ``I am bold font from the context`` therefore replaces any instance of ``{{ boldmessage }}`` within the template.
 
 Now that you have updated the view to employ the use of your template, run the Django development server and visit http://127.0.0.1:8000/rango/. You should see your template rendered in all its glory, just like the example shown in Figure :num:`fig-rango-hello-world-template`. 
 
@@ -177,13 +177,13 @@ With our ``static`` directory created, we need to tell Django about it, just lik
 	    STATIC_PATH,
 	)
 
-You've typed in some code, but what does it represent? The first variable ``STATIC_URL`` defines the base URL with which your Django applications will find static media files when the server is running. For example, when running the Django development server with ``STATIC_URL`` set to ``/static/`` like in the code example above, static media will be available at ``http://127.0.0.1:8000/static/``.  The `official documentation on serving up static media <https://docs.djangoproject.com/en/1.5/ref/settings/#std:setting-STATIC_URL>`_ warns that it is vitally  important to make sure that those slashes are there. Not configuring this problem can let to a world of pain.
+You've typed in some code, but what does it represent? The first variable ``STATIC_URL`` defines the base URL with which your Django applications will find static media files when the server is running. For example, when running the Django development server with ``STATIC_URL`` set to ``/static/`` like in the code example above, static media will be available at ``http://127.0.0.1:8000/static/``.  The `official documentation on serving up static media <https://docs.djangoproject.com/en/1.5/ref/settings/#std:setting-STATIC_URL>`_ warns that it is vitally  important to make sure that those slashes are there. Not configuring this problem can lead to a world of pain.
 
 While ``STATIC_URL`` defines the URL to access media via the web server, ``STATICFILES_DIRS`` allows you to specify the location of the newly created ``static`` directory on your local disk. Just like the ``TEMPLATE_DIRS`` tuple, ``STATICFILES_DIRS`` requires an absolute path to the ``static`` directory. Here, we re-used the ``PROJECT_PATH`` defined in Section :ref:`model-setup-templates-label` to create the ``STATIC_PATH``.
 
 With those two settings updated, run your Django project's development server once more. If we want to view our image of Rango,  visit the URL ``http://127.0.0.1:8000/static/rango.jpg``. If it doesn't appear, you will want to check to see if everything has been correctly spelt and that you saved your ``settings.py`` file, and restart the development server. If it does appear, try putting in additional file types into the ``static`` directory and request them via your browser.
 
-.. caution:: While using the Django development server to serve your static media files is fine for a development environment, it's highly unsuitable for a production - or 'live' - environment. The `official Django documentation on Deployment <https://docs.djangoproject.com/en/1.5/howto/static-files/deployment/>`_ provides further information about deploying static files in a production environment.
+.. caution:: While using the Django development server to serve your static media files is fine for a development environment, it's highly unsuitable for a production - or *live* - environment. The `official Django documentation on Deployment <https://docs.djangoproject.com/en/1.5/howto/static-files/deployment/>`_ provides further information about deploying static files in a production environment.
 
 Static Media Files and Templates
 --------------------------------

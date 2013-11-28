@@ -30,6 +30,8 @@ In this book, we have pulled together the relevant information and details so th
 * Jonathan Sundqvist https://github.com/jonathan-s
 * nolan-m https://github.com/nolan-m
 * Kartik Singhal https://github.com/k4rtik
+* William Vincent
+* Mike Gleen
 
 for their suggestions, comments and feedback, which have greatly improved the quality of this resource.
 
