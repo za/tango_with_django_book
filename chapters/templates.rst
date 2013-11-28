@@ -197,7 +197,7 @@ Now that we inherit from ``base.html``, all that exists within the ``category.ht
 
  	Templates are very powerful and you can even create your own template tags. Here we have shown how we can minimise the repetition of structure HTML in our templates.
 
-	However, templates are can also to minimise code within views too. For example, if you had a list of items generated from a database table that you would like to be presented on each page, it is then possible to construct templates that make the call to a specific view to render that part of the part. This saves you from calling the functions to retrieve the data and passing that data to the template for every view that displays that list.
+	However, templates can also be used to minimise code within views. For example, if you had a list of items generated from a database table that you would like to be presented on each page, it is then possible to construct templates that make the call to a specific view to render that part of the page. This saves you from calling the functions to retrieve the data and passing that data to the template for every view that displays that list.
 	
 	To learn more about the extensive functionality offered by Django's template language, check out the official `Django documentation on templates <https://docs.djangoproject.com/en/1.5/topics/templates/>`_. 
 
