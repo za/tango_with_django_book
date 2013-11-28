@@ -293,7 +293,7 @@ Hints
 .....
 To help you with the exercises above, the following hints may be of some use to you.
 
-* Update the category view to pass through the ``category_name_url``.
+* Update the category view to pass ``category_name_url`` by inserting it to ``context_dict``.
 * Update the ``category.html`` with a link to ``/rango/category/<category_name_url>/add_page/``.
 * Update ``rango/urls.py`` with a URL mapping to handle the above link.
 * In the sample code above, we make use of the ``decode_url()`` function created in Chapter :ref:`model-using-label`. If you haven't created this function, you'll need to do so now.

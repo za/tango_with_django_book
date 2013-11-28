@@ -22,7 +22,7 @@ Now go to the `JQuery website <http://jquery.com>`_ and download the latest 2.x 
 
 Including CSS/JS in The Base Template
 .....................................
-If you download or look at the source for http://getbootstrap.com/2.3.2/examples/fluid.html, you'll notice that in the ``<head>`` section there is some additional ``<style>`` code. Copy the CSS inside these style tags and create a new CSS file in ``/static/css/`` called ``boostrap-fluid-adj.css``. Your code should look similar to the example shown below.
+If you download or look at the source for http://getbootstrap.com/2.3.2/examples/fluid.html, you'll notice that in the ``<head>`` section there is some additional ``<style>`` code. Copy the CSS inside these style tags and create a new CSS file in ``/static/css/`` called ``bootstrap-fluid-adj.css``. Your code should look similar to the example shown below.
 
 .. code-block:: css
 	
@@ -61,7 +61,7 @@ By adding it to a file we can minimise the code in our template. Now update the 
 	    <title>Rango - {% block title %}How to Tango with Django!{% endblock %}</title>
 	</head>
 
-Note how we are including all these files through by externally linking them in. We will also need to include the js files. Instead of adding them to the ``<head>`` section, we will added them in at the bottom of ``base.html`` just before we close the ``<body>`` tag, just like in the example below.
+Note how we are including all these files by externally linking them in. We will also need to include the js files. Instead of adding them to the ``<head>`` section, we will add them at the bottom of ``base.html`` just before we close the ``<body>`` tag, just like in the example below.
 
 .. code-block:: html
 	

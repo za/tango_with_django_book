@@ -263,7 +263,7 @@ Now create a new template file, ``rango/register.html`` and add the following co
 
 	            {% csrf_token %}
 	            
-	            <!-- Display each form. The as.p method wraps each element in a paragraph
+	            <!-- Display each form. The as_p method wraps each element in a paragraph
 	                 (<p>) element. This ensures each element appears on a new line,
 	                 making everything look neater. -->
 	            {{ user_form.as_p }}
@@ -527,8 +527,9 @@ We'll also add in another pattern to Rango's ``urlpatterns`` tuple in the ``urls
 	    url(r'^add_category/$', views.add_category, name='add_category'),
 	    url(r'^register/$', views.register, name='register'),
 	    url(r'^login/$', views.user_login, name='login'),
+	    url(r'^(?P<category_name_url>\w+)', views.category, name='category'),
 	    url(r'^restricted/', views.restricted, name='restricted'),
-	    url(r'^(?P<category_name_url>\w+)', views.category, name='category'),)
+	    )
 
 We'll also need to handle the scenario where a user attempts to access the ``restricted()`` view, but is not logged in. What do we do with the user? The simplest approach is to redirect his or her browser. Django allows us to specify this in our project's ``settings.py`` file, located in the project configuration directory. In ``settings.py``, define the variable ``LOGIN_URL`` with the URL you'd like to redirect users to that aren't logged in, i.e. the login page located at ``/rango/login/``:
 
