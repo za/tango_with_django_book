@@ -250,7 +250,7 @@ Exercises
 ---------
 Now you've read through this chapter and tried out the code, give these exercises a go.
 
-- Change your cookies from client side to server side to make your application more secure. Clear the browser's cache and cookies, then check to make sure can't see the ``last_visit`` and ``visits`` variables in the browser. Note you will still see the ``sessionid`` cookie.
+- Change your cookies from client side to server side to make your application more secure. Clear the browser's cache and cookies, then check to make sure you can't see the ``last_visit`` and ``visits`` variables in the browser. Note you will still see the ``sessionid`` cookie.
 - Update the *About* page view and template telling the visitors how many times they have visited the site.
 
 Hint
