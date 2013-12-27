@@ -51,7 +51,7 @@ To let users "like" certain categories undertake the following workflow:
 	- This sets up the template to capture likes and to display likes for the category.
 * Update the ``category`` view to pass through the number of likes for the category.
 * Create a view called, ``like_category`` which will examine the request and pick out the ``category_id`` and then increment the number of likes for that category.
-	- Don't forgot to add in a the url mapping; so map the view to ``rango/like_category/`` i.e. the GET request will then be ``rango/like_category/?category_id=XXX``
+	- Don't forgot to add in the url mapping; i.e  map the ``like_category'' view to ``rango/like_category/``. The GET request will then be ``rango/like_category/?category_id=XXX``
 	- Instead of return a HTML page have this view will return the new total number of likes for that category.
 * Now in "rango-ajax.js" add the JQuery code to perform the AJAX GET request.
 	- If the request is successful, then update the #like_count element, and hide the like button.
