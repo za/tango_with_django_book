@@ -32,6 +32,7 @@ In this book, we have pulled together the relevant information and details so th
 * Kartik Singhal https://github.com/k4rtik
 * William Vincent
 * Mike Gleen
+* Oleg Belausov
 
 for their suggestions, comments and feedback, which have greatly improved the quality of this resource.
 
