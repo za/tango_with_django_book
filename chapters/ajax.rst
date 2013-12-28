@@ -9,7 +9,7 @@ To make the interaction with the Rango application more seamless let's add in a 
 * Add inline category suggestions - so that when a user types they can quickly find a category
 * Add an "Add Button" to let registered users quickly and easily add a Page to the Category
 
-AJAX essentially is a combination of technologies that are integrated together to reduce the number of page loads. Instead of reloading the full page, only part of the page or the data in the page is reloaded. 	If you haven't used AJAX before or would like to know more about it before using it, check out the AJAX tutorial provided by the W3C Schools: http://www.w3schools.com/ajax/default.ASP . 
+AJAX essentially is a combination of technologies that are integrated together to reduce the number of page loads. Instead of reloading the full page, only part of the page or the data in the page is reloaded. 	If you haven't used AJAX before or would like to know more about it before using it, check out the resources at the Mozilla website: https://developer.mozilla.org/en-US/docs/AJAX
 
 To simplify the AJAX components you can use a library like JQuery. If you are using the Twitter CSS Bootstrap toolkit then JQuery will already be added in. Otherwise, download the latest version of JQuery and include it within your application.
 
@@ -106,6 +106,8 @@ Create a view called, ``like_category`` in ``rango/views.py`` which will examine
 
 .. code-block:: python
 	
+	from django.contrib.auth.decorators import login_required
+
 	@login_required
 	def like_category(request):
 	    context = RequestContext(request)
@@ -147,7 +149,7 @@ Now in "rango-ajax.js" you will need to add some JQuery code to perform an AJAX 
 	               });
 	    });
 
-This piece of JQuery/Javascript will add and event handler to the element with id ``#likes``, i.e. the button. When clicked, it will extract the category id from the button element, and then make an AJAX GET request which will make a call to ``/rango/like_category/`` encoding the ``category id`` in the request. If the request is successful, then the HTML element with id like_count (i.e. the <b> ) is updated with the data returned by the request, and the HTML element with id likes (i.e. the <button>) is hidden.
+This piece of JQuery/Javascript will add an event handler to the element with id ``#likes``, i.e. the button. When clicked, it will extract the category id from the button element, and then make an AJAX GET request which will make a call to ``/rango/like_category/`` encoding the ``category id`` in the request. If the request is successful, then the HTML element with id like_count (i.e. the <b> ) is updated with the data returned by the request, and the HTML element with id likes (i.e. the <button>) is hidden.
 
 There is a lot going on here and getting the mechanics right when constructing pages with AJAX can be a bit tricky. Essentially here, when the button is clicked an AJAX request is made, given our url mapping, this invokes the ``like_category`` view which updates the category and returns a new number of likes. When the AJAX request receives the response it update part of the page i.e. the text and the button.
 
@@ -186,14 +188,14 @@ With the mapping, view, and template for this view in place, you will need to up
 
 Parameterise the Get Category List Function
 ...........................................
-In this helper function we use a filter to find all the categories that start with the string supplied.
+In this helper function we use a filter to find all the categories that start with the string supplied. The filter we use will be ``istartwith``, this will make sure that it doesn't matter whether we use upper-case or lower-case letters. If it on the other hand was important to take into account whether letters was upper-case or not you would use ``startswith`` instead. 
 
 .. code-block:: python
 
 	def get_category_list(max_results=0, starts_with=''):
 		cat_list = []
 		if starts_with:
-			cat_list = Category.objects.filter(name__startswith=starts_with)
+			cat_list = Category.objects.filter(name__istartswith=starts_with)
 		else:
 			cat_list = Category.objects.all()
 		
@@ -221,11 +223,11 @@ Using the ``get_category_list`` function we can now create a view that returns t
 		else:
 			starts_with = request.POST['suggestion']
 		
-			cat_list = get_category_list(8, starts_with)
+		cat_list = get_category_list(8, starts_with)
 			
 		return render_to_response('rango/category_list.html', {'cat_list': cat_list }, context)
 
-Note here we are re-using the ``rango/category_list.html`` template :-).
+Note here we are re-using the ``rango/category_list.html`` template :-). 
 
 Map View to URL
 ...............
@@ -255,7 +257,7 @@ In the base template in the sidebar div add in the following HTML code:
 		</div>	
 	{% endif %}
 
-Here we have added in an input box with ``id="suggestion"`` and div with ``id="Cats"`` in which we will display the response. We don't need to add a button as we will be adding an event handler on keyup to the input box which will send the suggestion request.
+Here we have added in an input box with ``id="suggestion"`` and div with ``id="cats"`` in which we will display the response. We don't need to add a button as we will be adding an event handler on keyup to the input box which will send the suggestion request.
 
 Add AJAX to Request Suggestions
 ...............................
