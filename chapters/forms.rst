@@ -144,27 +144,33 @@ Create the file ``templates/rango/add_category.html``. Within the file, add the 
 	    <body>
 	        <h1>Add a Category</h1>
 	        
-	        <form id="category_form" method="post" action="/rango/add_category/">
+	        {% if not category_name_url %}
+	            <div style="color: red;">The specified category does not exist!</div>
+	        {% else %}
+	            <form id="category_form" method="post" action="/rango/add_category/">
 	            
-	            {% csrf_token %}
-	            {% for hidden in form.hidden_fields %}
-	                {{ hidden }}
-	            {% endfor %}	
+	                {% csrf_token %}
+	                {% for hidden in form.hidden_fields %}
+	                    {{ hidden }}
+	                {% endfor %}	
 	            
-	            {% for field in form.visible_fields %}
-	                {{ field.errors }}
-	                {{ field.help_text}}
-	                {{ field }}
-	            {% endfor %}
+	                {% for field in form.visible_fields %}
+	                    {{ field.errors }}
+	                    {{ field.help_text}}
+	                    {{ field }}
+	                {% endfor %}
 	            
-	            <input type="submit" name="submit" value="Create Category" />
-	        </form>
+	                <input type="submit" name="submit" value="Create Category" />
+	            </form>
+	        {% endif %}
 	    
 	    </body>
 	
 	</html>
 
 Now, what does this code do? You can see that within the ``<body>`` of the HTML page that we place a ``<form>`` element. Looking at the attributes for the ``<form>`` element, you can see that all data captured within this form is sent to the URL ``/rango/add_category/`` as a HTTP ``POST`` request (the ``method`` attribute is case insensitive, so you can do ``POST`` or ``post`` - both provide the same functionality). Within the form, we have two for loops - one controlling *hidden* form fields, the other *visible* form fields - with visible fields controlled by the ``fields`` attribute of your ``ModelForm`` ``Meta`` class. These loops produce HTML markup for each form element. For visible form fields, we also add in any errors that may be present with a particular field and help text which can be used to explain to the user what he or she needs to enter.
+
+You should also have noticed the ``{% if not category_name_url %}`` condition. This is used to display either an error message or the input form. You'll see why we've included this a little bit further on in Section :ref:`forms-add-pages-view-label`.
 
 .. note:: The need for hidden as well as visible form fields is necessitated by the fact that HTTP is a stateless protocol. You can't persist state between different HTTP requests which can make certain parts of web applications difficult to implement. To overcome this limitation, hidden HTML form fields were created which allow web applications to pass important information to a client (which cannot be seen on the rendered page) in a HTML form, only to be sent back to the originating server when the user submits the form. 
 
@@ -247,6 +253,8 @@ Now that you've worked through the chapter, try these exercises to solidify your
 - How could you gracefully handle when a user visits a category that does not exist?
 - Undertake the `part four of the official Django Tutorial <https://docs.djangoproject.com/en/dev/intro/tutorial04/>`_ if you have not done so already to reinforce what you have learnt here.
 
+.. _forms-add-pages-view-label:
+
 Creating an *Add Pages* View, Template and URL Mapping
 .......................................................
 A next logical step would be to allow users to add pages to a given category. To do this, repeat the same workflow above for Pages - create a new view (and URL mapping), a new template, the URL mapping and then a link from the category page. To get you started, here's the view logic for you.
@@ -268,8 +276,15 @@ A next logical step would be to allow users to add pages to a given category. To
 	            page = form.save(commit=False)
 	
 	            # Retrieve the associated Category object so we can add it.
-	            cat = Category.objects.get(name=category_name)
-	            page.category = cat
+	            # Wrap the code in a try block - check if the category actually exists!
+	            try:
+	                cat = Category.objects.get(name=category_name)
+	                page.category = cat
+	            except Category.DoesNotExist:
+	                # If we get here, the category does not exist.
+	                # We render the add_page.html template without a context dictionary.
+	                # This will trigger the red text to appear in the template!
+                	return render_to_response('rango/add_page.html', {}, context)
 	
 	            # Also, create a default value for the number of views.
 	            page.views = 0
@@ -294,6 +309,6 @@ Hints
 To help you with the exercises above, the following hints may be of some use to you.
 
 * Update the ``category()`` view to pass ``category_name_url`` by inserting it to the view's ``context_dict`` dictionary.
-* Update the ``category.html`` with a link to ``/rango/category/<category_name_url>/add_page/``.
+* Update the ``category.html`` with a link to ``/rango/category/<category_name_url>/add_page/``. Ensure that the link only appears when *the requested category exists* - with or without pages.
 * Update ``rango/urls.py`` with a URL mapping to handle the above link.
 * In the sample code above, we make use of the ``decode_url()`` function created in Chapter :ref:`model-using-label`. If you haven't created this function, you'll need to do so now.
