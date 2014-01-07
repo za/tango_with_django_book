@@ -188,7 +188,6 @@ The ``extends`` command takes one parameter, the template which is to be extende
 	    {% if user.is_authenticated %}
 	       <a href="/rango/category/{{category_name_url}}/add_page/">Add a Page</a>
 	    {% endif %}
-	    
 	{% endblock %}
 
 Now that we inherit from ``base.html``, all that exists within the ``category.html`` template is the ``extends`` command, the ``title`` block and the ``body_block`` block. You don't need a well-formatted HTML document because ``base.html`` provides all the groundwork for you. All you're doing is plugging in additional content to the base template to create the complete HTML document which is sent to the client's browser.
@@ -217,3 +216,24 @@ Now that you've worked through this chapter, we've got several exercises for you
 	:figclass: align-center
 	
 	A class diagram demonstrating how your templates should inherit from ``base.html``.
+
+.. note:: Looking back at the markup of ``base.html``, we make use of the ``user`` object within the request's context to determine if the user currently using the web application is currently logged in or not (through use of ``user.is_authenticated``). As one of your tasks for this chapter is to modify all of Rango's templates to extend from ``base.html``, we can now say that all of the application's templates now depend on having access to a request's context.
+	
+	because of this new dependency, you must check Rango's views to see if the context for each request is made available to the Django template engine. Throughout this tutorial, we've been using ``render_to_response()`` to achieve this. If you don't ensure this happens, your views may be rendered incorrectly - users may appear to be not logged in, even though Django thinks that they are!
+	
+	As a quick example of the checks you must carry out, have a look at the ``about`` view. Initially, this was implemented with a hard-coded string response, as shown below. Note that we only send the string - we don't make use of the request passed as the ``request`` parameter.
+	
+	.. code-block:: python
+		
+		def about(request):
+		    return HttpResponse('Rango says: Here is the about page. <a href="/rango/">Index</a>')
+	
+	To employ the use of a template, we call the ``render_to_response()`` function and use the ``RequestContext`` class to obtain the request's current context. This will allow the template engine access to objects such as ``user``, which will now allowing the template engine to determine if the user is logged in.
+	
+	.. code-block:: python
+		
+		def about(request):
+		    context = RequestContext(request)
+		    return render_to_response('rango/about.html', {}, context)
+	
+	Remember, the second parameter of ``render_to_response()`` is a dictionary with which you can use to pass additional data to the Django template engine. Have a look at Section :ref:`adding-a-template-label` to refresh your memory on ``render_to_response()``.

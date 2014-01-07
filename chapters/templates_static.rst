@@ -81,6 +81,8 @@ We again make use of ``os.path.join()`` to mash together the ``PROJECT_PATH`` va
 
 We can keep the ``TEMPLATE_PATH`` variable at the top of our ``settings.py`` module to make it easy to access should it ever need to be changed. This is why we created an additional variable to store the template path.
 
+.. _adding-a-template-label:
+
 Adding a Template
 .................
 With your template directory and path set up, create a file called ``index.html`` and place it in the ``templates/rango/`` directory. Within this new file, add the following HTML code:

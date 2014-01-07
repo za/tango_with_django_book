@@ -245,19 +245,19 @@ Exercises
 Congratulations! You have got Rango up and running. This is a significant landmark in working with Django. Creating views and mapping URLs to views is the first step towards developing more complex and usable web applications. Now try the following exercises to reinforce what you've learnt.
 
 * Revise the procedure and make sure you follow how the URLs are mapped to views.
-* Next create a new view called about page - which returns the following: ``"Rango Says: Here is the about page."``
-* Now map the this view to ``/rango/about/``. Note you will only have to edit the ``urls.py`` of the rango application.
-* Revise the HttpResponse in the index view to include a link to the about page.
-* In the HttpResponse in the about view include a link back to the main page.
+* Now create a new view called ``about`` which returns the following: ``Rango Says: Here is the about page.``
+* Now map the this view to ``/rango/about/``. For this step, you'll only need to edit the ``urls.py`` of the rango application.
+* Revise the ``HttpResponse`` in the ``index`` view to include a link to the about page.
+* In the ``HttpResponse`` in the ``about`` view include a link back to the main page.
 * If you haven't done so already, it is a good point to go off an complete part one of the official `Django Tutorial <https://docs.djangoproject.com/en/1.5/intro/tutorial01/>`_. 
 
 Hints
 .....
 If you're struggling to get the exercises done, the following hints will hopefully provide you with some inspiration on how to progress.
 
-* The HttpResponse in the index view should be something like: "Rango says: Hello world! <a href='/rango/about'>About</a>"
-* The regular expression to match ``about/`` is ``r'^about/'``
-* The HTML to link back to the index page is ``<a href="/rango/">Index</a>``
+* Your ``index`` view should be updated to include a link to the ``about`` view. Keep it simple for now - something like ``Rango says: Hello world! <a href='/rango/about'>About</a>`` will suffice. We'll be going back later to improve the presentation of these pages.
+* The regular expression to match ``about/`` is ``r'^about/'`` - this will be handy when thinking about your URL pattern.
+* The HTML to link back to the index page is ``<a href="/rango/">Index</a>``. The link uses the same structure as the link to the ``about`` page shown above.
 
 .. rubric:: Footnotes
 .. [#f1] This assumes that you are using the IP address 127.0.0.1 and port 8000 when running your Django development web server. If you do not explicitly provide a port to run the development server on, Django defaults to port 8000 for you.
