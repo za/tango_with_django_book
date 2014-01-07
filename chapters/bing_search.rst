@@ -14,18 +14,18 @@ Registering for a Bing API Key
 ..............................
 To register for a Bing API key, you must first register for a free Microsoft account. The account provides you with access to a wide range of Microsoft services. If you already have a Hotmail account, you already have one! You can create your free account and login at https://account.windowsazure.com.
 
-When you account has been created, jump to the `Windows Azure Marketplace Bing Search API page <https://datamarket.azure.com/dataset/5BA839F1-12CE-4CCE-BF57-A49D98D29A44>`_. At the top of the screen, you may first need to click the *Sign On* button - if you have already signed into your Microsoft account, you won't need to provide your account details again. If the text says *Sign Out*, you're already logged in.
+When you account has been created, jump to the `Windows Azure Marketplace Bing Search API page <https://datamarket.azure.com/dataset/5BA839F1-12CE-4CCE-BF57-A49D98D29A44>`_. At the top of the screen, you may first need to click the *Sign In* button - if you have already signed into your Microsoft account, you won't need to provide your account details again. If the text says *Sign Out*, you're already logged in.
 
 Down the right hand side of the page is a list of transactions per month. At the bottom of the list is *5,000 Transactions/month*. Click the sign up button to the right - you should be subscribing for a free service. You should then read the *Publisher Offer Terms*, and if you agree with them click *Sign Up* to continue. You will  then be presented with a page confirming that you have successfully signed up.
 
-Once you've signed up, click the *Data* link at the top of the page. From there, you should be presented with a list of data sources available through the Windows Azure Marketplace. At the top of the list should be *Bing Search API* - it should also say that you are *subscribed* to the data source. Click the *use* link to the right of the page, and you will then be presented with a screen similar to that shown in Figure :num:`fig-bing-explore`.
+Once you've signed up, click the *Data* link at the top of the page. From there, you should be presented with a list of data sources available through the Windows Azure Marketplace. At the top of the list should be *Bing Search API* - it should also say that you are *subscribed* to the data source. Click the *use* link associated with the Bing Search API located on the right of the page. You will then be presented with a screen similar to that shown in Figure :num:`fig-bing-explore`.
 
 .. _fig-bing-explore:
 
 .. figure:: ../images/bing-explore.png
 	:figclass: align-center
 
-	The Bing Search API service explorer page. The *Primary Account Key* is deliberately obscured.
+	The Bing Search API service explorer page. In this screenshot, the *Primary Account Key* is deliberately obscured. You should make sure you keep your key secret, too!
 
 This page allows you to try out the Bing Search API by filling out the boxes to the left. For example, the *Query* box allows you to specify a query to send to the API. Ensure that at the bottom of the screen you select *Web* for web search results only. Note the URL provided in the blue box at the top of the page changes as you alter the settings within the webpage. Take a note of the Web search URL. We'll be using part of this URL within our code later on. The following example is a URL to perform a web search using the query *rango*.
 
