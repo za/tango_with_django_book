@@ -220,8 +220,6 @@ Using the ``get_category_list`` function we can now create a view that returns t
 		starts_with = ''
 		if request.method == 'GET':
 			starts_with = request.GET['suggestion']
-		else:
-			starts_with = request.POST['suggestion']
 		
 		cat_list = get_category_list(8, starts_with)
 			
