@@ -24,7 +24,7 @@ The passing of information in the form of cookies can open up potential security
 
 	A screenshot of the BBC News website (hosted in the United Kingdom) with the cookie warning message presented at the top of the page.
 
-.. note:: Because of the potentially sensitive nature of cookies, lawmakers have taken a particularly keen interest in them. In particular, EU lawmakers in 2011 introduced an EU-wide 'cookie law', where all hosted sites within the EU should present a cookie warning message when a user visits the site for the first time. Check out Figure :num:`fig-bbcnews-cookies`, demonstrating such a warning on the BBC News webiste. You can read about `the law here <http://www.ico.org.uk/for_organisations/privacy_and_electronic_communications/the_guide/cookies>`_.
+.. note:: Because of the potentially sensitive nature of cookies, lawmakers have taken a particularly keen interest in them. In particular, EU lawmakers in 2011 introduced an EU-wide 'cookie law', where all hosted sites within the EU should present a cookie warning message when a user visits the site for the first time. Check out Figure :num:`fig-bbcnews-cookies`, demonstrating such a warning on the BBC News website. You can read about `the law here <http://www.ico.org.uk/for_organisations/privacy_and_electronic_communications/the_guide/cookies>`_.
 
 
 .. _model-cookies-protocols-label:
@@ -250,7 +250,7 @@ Exercises
 ---------
 Now you've read through this chapter and tried out the code, give these exercises a go.
 
-- Change your cookies from client side to server side to make your application more secure. Clear the browser's cache and cookies, then check to make sure can't see the ``last_visit`` and ``visits`` variables in the browser. Note you will still see the ``sessionid`` cookie.
+- Change your cookies from client side to server side to make your application more secure. Clear the browser's cache and cookies, then check to make sure you can't see the ``last_visit`` and ``visits`` variables in the browser. Note you will still see the ``sessionid`` cookie.
 - Update the *About* page view and template telling the visitors how many times they have visited the site.
 
 Hint
