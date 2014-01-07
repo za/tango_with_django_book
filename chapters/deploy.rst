@@ -7,7 +7,7 @@ This chapter provides a step-by-step guide on how to deploy your Django applicat
 
 Creating a PythonAnywhere Account
 ---------------------------------
-First `sign up for the Begginner PythonAnywhere account <https://www.pythonanywhere.com/pricing/>`_.  If your application takes off and becomes popular, you can always upgrade your account at a later stage to gain more storage space and CPU time along with a number of other benefits (like hosting specific domains and ssh abilities).
+First `sign up for a Beginner PythonAnywhere account <https://www.pythonanywhere.com/pricing/>`_.  If your application takes off and becomes popular, you can always upgrade your account at a later stage to gain more storage space and CPU time along with a number of other benefits (like hosting specific domains and ssh abilities).
 
 Once your account has been created, you will have your own little slice of the World Wide Web at ``http://<username>.pythonanywhere.com``, where ``<username>`` is your PythonAnywhere username. It is from this URL that your hosted application will be available from.
 
@@ -205,7 +205,7 @@ Changing the value of ``DEBUG`` also means you should set the ``ALLOWED_HOSTS`` 
 
 .. code-block:: python
 	
-	ALLOWED_HOSTS = ['<username>.pythonanywhere.com>']
+	ALLOWED_HOSTS = ['<username>.pythonanywhere.com']
 
 Again, ensure ``<username>`` is changed to your PythonAnywhere username. Once complete, save the file and reload the application via the PythonAnywhere web interface.
 
