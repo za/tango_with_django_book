@@ -24,7 +24,7 @@ The passing of information in the form of cookies can open up potential security
 
 	A screenshot of the BBC News website (hosted in the United Kingdom) with the cookie warning message presented at the top of the page.
 
-.. note:: Because of the potentially sensitive nature of cookies, lawmakers have taken a particularly keen interest in them. In particular, EU lawmakers in 2011 introduced an EU-wide 'cookie law', where all hosted sites within the EU should present a cookie warning message when a user visits the site for the first time. Check out Figure :num:`fig-bbcnews-cookies`, demonstrating such a warning on the BBC News website. You can read about `the law here <http://www.ico.org.uk/for_organisations/privacy_and_electronic_communications/the_guide/cookies>`_.
+.. note:: Because of the potentially sensitive nature of cookies, lawmakers have taken a particularly keen interest in them. In particular, European Union (EU) lawmakers in 2011 introduced an EU-wide 'cookie law', where all hosted sites within the EU should present a cookie warning message when a user visits the site for the first time. Check out Figure :num:`fig-bbcnews-cookies`, demonstrating such a warning on the BBC News website. You can read about `the law here <http://www.ico.org.uk/for_organisations/privacy_and_electronic_communications/the_guide/cookies>`_.
 
 
 .. _model-cookies-protocols-label:

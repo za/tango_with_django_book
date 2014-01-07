@@ -1,3 +1,10 @@
+General Comments
+----------------
+- @Siecje thinks we should start using render() rather than render_to_response() at some point.
+	- He feels it is important to discuss that there's a shorthand way of getting a response to the client.
+	- But I (David) argue it could be confusing - and anyway, render_to_response() drills the concept of context dictionaries into a reader's head.
+	- Hmm... I can add a note at some point to discuss this briefly!
+
 EBook and Cover Design
 ----------------------
 - Update sphinx style to compile nicely into ebook
