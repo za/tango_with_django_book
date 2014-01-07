@@ -226,7 +226,7 @@ Now let's have a look at how we actually pass the value of the ``category_name_u
 
 As you can see, we have added in a rather complex entry that will invoke ``view.category()`` when the regular expression ``r'^(?P<category_name_url>\w+)/$'`` is matched. We set up our regular expression to look for any sequence of word characters (e.g. a-z, A-Z, _, or 0-9) before the trailing URL slash. This value is then passed to the view ``views.category()`` as parameter ``category_name_url``, the only argument after the mandatory ``request`` argument. Essentially, the name you hard-code into the regular expression is the name of the argument that Django looks for in your view's function definition.
 
-.. note:: Regular expressions may seem horrible and confusing at first, but there are tons of resources online to help you. `This cheat sheet <http://cheatography.com/davechild/cheat-sheets/regular-expressions/>`_ provides you with an excellent resource for fixing pesky regular expression problems.
+.. note:: Regular expressions may seem horrible and confusing at first, but there are tons of resources online to help you. `This cheat sheet <http://cheatography.com/davechild/cheat-sheets/regular-expressions/>`_ is an excellent resource for fixing regular expression problems.
 
 Modifying the Index View and Template
 .....................................
