@@ -219,7 +219,7 @@ Now that you've worked through this chapter, we've got several exercises for you
 
 .. note:: Looking back at the markup of ``base.html``, we make use of the ``user`` object within the request's context to determine if the user currently using the web application is currently logged in or not (through use of ``user.is_authenticated``). As one of your tasks for this chapter is to modify all of Rango's templates to extend from ``base.html``, we can now say that all of the application's templates now depend on having access to a request's context.
 	
-	because of this new dependency, you must check Rango's views to see if the context for each request is made available to the Django template engine. Throughout this tutorial, we've been using ``render_to_response()`` to achieve this. If you don't ensure this happens, your views may be rendered incorrectly - users may appear to be not logged in, even though Django thinks that they are!
+	Due to this new dependency, you must check each of Rango's Django views. For each view, ensure that the context for each request is made available to the Django template engine. Throughout this tutorial, we've been using ``render_to_response()`` to achieve this. If you don't ensure this happens, your views may be rendered incorrectly - users may appear to be not logged in, even though Django thinks that they are!
 	
 	As a quick example of the checks you must carry out, have a look at the ``about`` view. Initially, this was implemented with a hard-coded string response, as shown below. Note that we only send the string - we don't make use of the request passed as the ``request`` parameter.
 	
