@@ -217,7 +217,7 @@ Now that you've worked through this chapter, we've got several exercises for you
 	
 	A class diagram demonstrating how your templates should inherit from ``base.html``.
 
-.. note:: Looking back at the markup of ``base.html``, we make use of the ``user`` object within the request's context to determine if the user currently using the web application is currently logged in or not (through use of ``user.is_authenticated``). As one of your tasks for this chapter is to modify all of Rango's templates to extend from ``base.html``, we can now say that all of the application's templates now depend on having access to a request's context.
+.. note:: Upon completion of these exercises, all of Rango's templates should inherit from ``base.html``. Looking back at the contents of ``base.html``, the ``user`` object - found within the context of a given Django request - is used to determine if the current user of Rango is logged in (through use of ``user.is_authenticated``). As all of Rango's templates should inherit from this base template, we can say that *all of Rango's templates now depend on having access to the context of a given request.*
 	
 	Due to this new dependency, you must check each of Rango's Django views. For each view, ensure that the context for each request is made available to the Django template engine. Throughout this tutorial, we've been using ``render_to_response()`` to achieve this. If you don't ensure this happens, your views may be rendered incorrectly - users may appear to be not logged in, even though Django thinks that they are!
 	
