@@ -156,7 +156,7 @@ For reading through the code, you will see that a majority of the code deals wit
 
 There's a ``datetime`` object within the ``datetime`` module, that's not a typo. Make sure you import the module correctly, otherwise you'll get frustrating import errors.
 
-In the added code we check to see if the cookie ``last_visit`` exists. If it does, we can take the value from the cookie using the syntax ``request.COOKIES['cookie_name']``, where ``request`` is the name of the ``request`` object, and ``'cookie_name'`` is the name of the cookie you wish to retrieve. **Note that all cookie values are returned as strings**; do not assume that a cookie storing whole numbers will return you an integer. You have to manually cast this to the correct type yourself. If a cookie does not exist, you can create a cookie with the ``set_cookie()`` method of the ``response`` object you create. The method takes in two values, the name of the cookie you wish to create (as a string), and the value of the cookie. In this case, it doesn't matter what type you pass as the value - it will be automatically cast as a string.
+In the added code we check to see if the cookie ``last_visit`` exists. If it does, we can take the value from the cookie using the syntax ``request.COOKIES['cookie_name']``, where ``request`` is the name of the ``request`` object, and ``'cookie_name'`` is the name of the cookie you wish to retrieve. **Note that all cookie values are returned as strings**; *do not assume that a cookie storing whole numbers will return an integer.* You have to manually cast this to the correct type yourself. If a cookie does not exist, you can create a cookie with the ``set_cookie()`` method of the ``response`` object you create. The method takes in two values, the name of the cookie you wish to create (as a string), and the value of the cookie. In this case, it doesn't matter what type you pass as the value - it will be automatically cast to a string.
 
 .. _fig-cookie-visits:
 
@@ -166,6 +166,18 @@ In the added code we check to see if the cookie ``last_visit`` exists. If it doe
 	A screenshot of Google Chrome with the Developer Tools open showing the cookies for Rango. Note the ``visits`` cookie - the user has visited a total of six times, with each visit at least one day apart.
 
 Now if you visit the Rango homepage, and inspect the developer tools provided by your browser, you should be able to see the cookies ``visits`` and ``last_visit``. Figure :num:`fig-cookie-visits` demonstrates the cookies in action.
+
+.. note:: You may notice that the ``visits`` cookie doesn't increment when you refresh your web browser. Why? The sample code we provide above only increments the counter *at least one whole day* after a user revisits the Rango homepage. This is an unacceptable time to wait when testing - so why not temporarily change the delay to a shorter time period? In the updated ``index`` view, find the following line.
+	
+	``if (datetime.now() - last_visit_time).days > 0:``
+	
+	We can easily change this line to compare the number of *seconds* between visits. In the example below, we check if the user visited at least five seconds prior.
+	
+	``if (datetime.now() - last_visit_time).seconds > 5:``
+	
+	This means you need only wait five seconds to see your ``visits`` cookie increment, rather than a whole day. When you're happy your code works, you can revert the comparison back to the original per-day timespan.
+	
+	Being able to find the difference between times using the ``-`` operator is one of the many awesome features that Python provides. When times are subtracted, a ``timedelta`` object is returned, which provides the ``days`` and ``seconds`` attributes we use in the code snippets above. You can check out the `official Python documentation <http://docs.python.org/2/library/datetime.html#timedelta-objects>`_ for more information on this type of object, and what other attributes it provides.
 
 Session Data
 ------------
