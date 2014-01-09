@@ -2,11 +2,9 @@ Bootstrapping Rango
 ===================
 In this chapter, we will be styling Rango using the *Twitter Bootstrap 2.3.2* toolkit. We won't go into the details about how Bootstrap works, and we will be assuming you have some familiarity with CSS. If you don't, check out the CSS chapter so that you understand the basics and then check out some Bootstrap tutorials. However, you should be able to go through this section and piece things together.
 
-To get started take a look at the `Bootstrap 2.3.2 website <http://getbootstrap.com/2.3.2/index.html>`_ - it provides you with sample code and examples of the different components and how to style them by added in the appropriate style tags, etc.
+To get started take a look at the `Bootstrap 2.3.2 website <http://getbootstrap.com/2.3.2/index.html>`_ - it provides you with sample code and examples of the different components and how to style them by added in the appropriate style tags, etc. On the Bootstrap website they provide a number of `example layouts <http://getbootstrap.com/2.3.2/getting-started.html#examples>`_ which we can base our design on.
 
-On the Bootstrap website they provide a number of `example layouts <http://getbootstrap.com/2.3.2/getting-started.html#examples>`_ which we can base our design on, see http://getbootstrap.com/2.3.2/getting-started.html#examples for more information.
-
-To style Rango we have identified that the `fluid style <http://getbootstrap.com/2.3.2/examples/fluid.html>`_ more or less meets our needs in terms of the layout of Rango, i.e. it has a menu bar at the top, a side bar (which we will use to show categories) and a main content pane; see http://getbootstrap.com/2.3.2/examples/fluid.html for more information.
+To style Rango we have identified that the `fluid style <http://getbootstrap.com/2.3.2/examples/fluid.html>`_ more or less meets our needs in terms of the layout of Rango, i.e. it has a menu bar at the top, a side bar (which we will use to show categories) and a main content pane.
 
 Setting up The Base Template
 ----------------------------
