@@ -358,7 +358,13 @@ While this looks like a lot of code, what it does is relatively simple. As we de
 
 The ``populate()`` function is responsible for the calling the ``add_cat()`` and ``add_page()`` functions, who are in turn responsible for the creation of new categories and pages respectively. ``populate()`` keeps tabs on category references for us as we create each individual ``Page`` model instance and store them within our database. Finally, we loop through our ``Category`` and ``Page`` models to print to the user all the ``Page`` instances and their corresponding categories.
 
-.. note:: We make use of the convenience ``get_or_create()`` function for creating model instances. Check out the `official Django documentation <https://docs.djangoproject.com/en/1.5/ref/models/querysets/#get-or-create>`_ for more information on this function. The documentation will explain why we pass index ``[0]`` of the function's returned value!
+.. note:: We make use of the convenience ``get_or_create()`` method for creating model instances. As we don't want to create duplicates of the same entry, we can use ``get_or_create()`` to check if the entry exists in the database for us. If it doesn't exist, the method creates it. This can remove a lot of repetitive code for us - rather than doing this laborious check ourselves, we can make use of code that does exactly this for us. As we mentioned previously, why reinvent the wheel if it’s already there?
+	
+	The ``get_or_create()`` method returns a tuple of ``(object, created)``. The first element ``object`` is a reference to the model instance that the ``get_or_create()`` method creates if the database entry was not found. The entry is created using the parameters you pass to the method - just like ``category``, ``title``, ``url`` and ``views`` in the example above. If the entry already exists in the database, the method simply returns the model instance corresponding to the entry. ``created`` is a boolean value; ``true`` is returned if ``get_or_create()`` had to create a model instance.
+	
+	The ``[0]`` at the end of our call to the method to retrieve the ``object`` portion of the tuple returned from ``get_or_create()``. Like most other programming language data structures, Python tuples use `zero-based numbering <http://en.wikipedia.org/wiki/Zero-based_numbering>`_.
+	
+	You can check out the `official Django documentation <https://docs.djangoproject.com/en/1.5/ref/models/querysets/#get-or-create>`_ for more information on the handy ``get_or_create()`` method.
 
 When saved, we can run the script by changing the current working directory in a terminal to our Django project's root and executing the module with the command ``$ python populate_rango.py``. You should then see output similar to that shown below.
 
