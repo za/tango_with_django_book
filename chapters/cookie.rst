@@ -222,7 +222,9 @@ Now if you want to check if the cookie has been stored you can do so by accessin
 	    # Render and return the rendered response back to the user.
 	    return render_to_response('rango/index.html', context_dict, context)
 
-.. note:: A nice extra advantage to storing session data server-side is that you don't need to always cast data from strings to the desired type. Be careful though: this only seems to hold for simple data types such as strings, integers, floats and booleans.
+.. warning:: It's highly recommended that you delete any client-side cookies for Rango *before* you start using session-based data. You can do this in your browser's developer tools by deleting each cookie individually, or simply clear your browser's cache entirely - ensuring that cookies are deleted in the process.
+
+.. note:: An added advantage of storing session data server-side is its ability to cast data from strings to the desired type. This only works however for `built-in types <http://docs.python.org/2/library/stdtypes.html>`_, such as ``int``, ``float``, ``long``, ``complex`` and ``boolean``.
 
 Browser-Length and Persistent Sessions
 --------------------------------------
