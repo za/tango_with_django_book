@@ -211,7 +211,9 @@ Now let's create our template for the new view.  In ``<workspace>/tango_with_dja
 
 The HTML code example again demonstrates how we utilise the data passed to the template via its context. We make use of the ``category_name`` variable and our ``category`` and ``pages`` objects. If ``category`` is not defined within our template context, the category was not found within the database, and a friendly error message is displayed stating this fact. If the opposite is true, we then proceed to check for ``pages``. If ``pages`` is undefined or contains no elements, we display a message stating there are no pages present. Otherwise, the pages within the category are presented in a HTML list. For each page in the ``pages`` list, we present their ``title`` and ``url`` attributes.
 
-.. note:: This a Django template ``{% if %}`` statement with an object is a really neat way of determining the existence of the object within the template's context. Try getting into the habit of performing these checks to reduce the scope for potential exceptions that could be raised within your code.
+.. note:: The Django template conditional tag - ``{% if %}`` - is a really neat way of determining the existence of an object within the template's context. Try getting into the habit of performing these checks to reduce the scope for potential exceptions that could be raised within your code.
+	
+	Placing conditional checks in your templates - like ``{% if category %}`` in the example above - also makes sense semantically. The outcome of the conditional check directly affects the way in which the rendered page is presented to the user - and presentational aspects of your Django applications should be encapsulated within templates.
 
 Parameterised URL Mapping
 .........................
@@ -222,9 +224,26 @@ Now let's have a look at how we actually pass the value of the ``category_name_u
 	urlpatterns = patterns('',
 	    url(r'^$', views.index, name='index'),
 	    url(r'^about/$', views.about, name='about'),
-	    url(r'^category/(?P<category_name_url>\w+)/$', views.category, name='category'),) # New!
+	    url(r'^category/(?P<category_name_url>\w+)/$', views.category, name='category'),)  # New!
 
-As you can see, we have added in a rather complex entry that will invoke ``view.category()`` when the regular expression ``r'^(?P<category_name_url>\w+)/$'`` is matched. We set up our regular expression to look for any sequence of word characters (e.g. a-z, A-Z, _, or 0-9) before the trailing URL slash. This value is then passed to the view ``views.category()`` as parameter ``category_name_url``, the only argument after the mandatory ``request`` argument. Essentially, the name you hard-code into the regular expression is the name of the argument that Django looks for in your view's function definition.
+As you can see, we have added in a rather complex entry that will invoke ``view.category()`` when the regular expression ``r'^(?P<category_name_url>\w+)/$'`` is matched. We set up our regular expression to look for any sequence of alphanumeric characters (e.g. a-z, A-Z, or 0-9) and underscores (_) before the trailing URL slash. This value is then passed to the view ``views.category()`` as parameter ``category_name_url``, the only argument after the mandatory ``request`` argument.
+
+.. note:: When you wish to parameterise URLs, it's important to ensure that your URL pattern matches the parameters that the corresponding view takes in. To elaborate further, let's take the example we added above. The pattern added was as follows.
+	
+	.. code-block:: python
+		
+		url(r'^category/(?P<category_name_url>\w+)/$', views.category, name='category')
+	
+	We can from here deduce that the characters (both alphanumeric and underscores) between ``category/`` and the trailing ``/`` at the end of a matching URL are to be passed to method ``views.category()`` as named parameter ``category_name_url``. For example, the URL ``category/python_books/`` would yield a ``category_name_url`` or ``python_books``.
+	
+	As you should remember, all view functions defined as part of a Django project *must* take at least one parameter. This is typically called ``request`` - and provides access to information related to the given HTTP request made by the user. When parameterising URLs, you supply additional named parameters to the signature for the given view. Using the same example, our ``category`` view signature is altered such that it now looks like the following.
+	
+	.. code-block:: python
+		
+		def category(request, category_name_url):
+		    # ... code here ...
+	
+	It's not the position of the additional parameters that matters, it's the *name* that must match anything defined within the URL pattern. Note how ``category_name_url`` defined in the URL pattern matches the ``category_name_url`` parameter defined for our view. Using ``category_name_url`` in our view will give ``python_books``, or whatever value was supplied as that part of the URL.
 
 .. note:: Regular expressions may seem horrible and confusing at first, but there are tons of resources online to help you. `This cheat sheet <http://cheatography.com/davechild/cheat-sheets/regular-expressions/>`_ is an excellent resource for fixing regular expression problems.
 
