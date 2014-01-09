@@ -132,7 +132,19 @@ You may be asked if you wish to create a superuser account, just like in the exa
 
 After this process has been completed you will be able to see a new file called ``rango.db`` in your project directory. 
 
-.. note:: Whenever you change your database models, you will have to delete the database file and then re-sync the database by running ``python manage.py syncdb`` again. If you add a new model however, you can ``syncdb`` your database without deleting it. This is a known drawback of Django, and can be quite frustrating. *New models will by synchronised, but changes to existing models will not be.* You may have also noticed that we forgot to include a couple of fields in our ``Category`` model. We will add these in later to remind you of this process. One solution to this problem is using a third party application like `South <https://pypi.python.org/pypi/South>`_ that handles schema migrations (changes to models). South is currently in active development and is considered a standard solution for schema migrations until something like this becomes part of the standard Django codebase. However, we won't be covering South in this book.
+.. warning:: Whenever you add to existing database models, *you will have to delete the database file and then re-sync the database by running* ``python manage.py syncb`` *again.* This is a drawback of Django 1.5.4, and can be quite frustrating. If you however add a new model, you can ``syncdb`` your database without having to delete and recreate it. You *must* therefore bear this in mind when tweaking your database: **new models will be synchronised with** ``syncdb`` **- but changes to existing models will not be.**
+	
+	When *adding a new model* to your application's ``models.py`` file, you can simply run the following command to synchronise the database with the command ``$ python manage.py syncdb``.
+	
+	When *updating an existing model* to your application's ``models.py`` file, you must perform the following steps.
+	
+	#. Delete the database.
+	#. Recreate the database with the command ``$ python manage.py syncdb``.
+	#. Populate the new database with data.
+	
+	Deleting and recreating the database from scratch is a frustrating process. A possible solution to this issue could be to use a third party application like `South <https://pypi.python.org/pypi/South>`_ to handle *database schema migrations* (changes to your models). South is currently in active development and is considered a standard solution for Django schema migrations until this functionality becomes part of the standard Django codebase. We don't cover South here - but the `official South documentation <http://south.readthedocs.org/en/latest/tutorial/>`_ provides a handy tutorial if you're interested. If you don't want to use South, we discuss a technique in Section :ref:`model-population-script-label` to speed up the updating process.
+	
+	You may have also noticed that our ``Category`` model is currently lacking some fields that we defined in Rango's requirements. We will add these in later to remind you of the updating process.
 
 Generated SQL 
 -------------
@@ -268,6 +280,8 @@ Try clicking the ``Categorys`` link within the ``Rango`` section. From here, you
 .. note:: Note the typo within the admin interface (categorys, not categories). This problem can be fixed by adding a nested ``Meta`` class into your model definitions with the ``verbose_name_plural`` attribute. Check out `Django's official documentation on models <https://docs.djangoproject.com/en/1.5/topics/db/models/#meta-options>`_ for more information.
 
 .. note:: The example ``admin.py`` file for our Rango application is the most simple, functional example available. There are many different features which you can use in the ``admin.py`` to perform all sorts of cool customisations, such as changing the way models appear in the admin interface. For this tutorial, we'll stick with the bare-bones admin interface, but you can check out the `official Django documentation on the admin interface <https://docs.djangoproject.com/en/1.5/ref/contrib/admin/>`_ for more information if you're interested.
+
+.. _model-population-script-label:
 
 Creating a Population Script
 ----------------------------
