@@ -273,11 +273,11 @@ So, how do we go about setting up a development media server? The first step is 
 	
 	# UNDERNEATH your urlpatterns definition, add the following two lines:
 	if settings.DEBUG:
-		urlpatterns += patterns(
-			'django.views.static',
-			(r'media/(?P<path>.*)',
-			'serve',
-			{'document_root': settings.MEDIA_ROOT}), )
+	    urlpatterns += patterns(
+	        'django.views.static',
+	        (r'media/(?P<path>.*)',
+	        'serve',
+	        {'document_root': settings.MEDIA_ROOT}), )
 
 The ``settings`` module from ``django.conf`` allows us access to the variables defined within our project's ``settings.py`` file. The conditional statement then checks if the Django project is being run in `DEBUG <https://docs.djangoproject.com/en/1.5/ref/settings/#debug>`_ mode. If the project's ``DEBUG`` setting is set to ``True``, then an additional URL matching pattern is appended to the ``urlpatterns`` tuple. The pattern states that for any file requested with a URL starting with ``media/``, the request will be passed to the ``django.views.static`` view. This view handles the dispatching of uploaded media files for you.
 
