@@ -224,7 +224,7 @@ Now if you want to check if the cookie has been stored you can do so by accessin
 
 .. warning:: It's highly recommended that you delete any client-side cookies for Rango *before* you start using session-based data. You can do this in your browser's developer tools by deleting each cookie individually, or simply clear your browser's cache entirely - ensuring that cookies are deleted in the process.
 
-.. note:: An added advantage of storing session data server-side is its ability to cast data from strings to the desired type. This only works however for `built-in types <http://docs.python.org/2/library/stdtypes.html>`_, such as ``int``, ``float``, ``long``, ``complex`` and ``boolean``.
+.. note:: An added advantage of storing session data server-side is its ability to cast data from strings to the desired type. This only works however for `built-in types <http://docs.python.org/2/library/stdtypes.html>`_, such as ``int``, ``float``, ``long``, ``complex`` and ``boolean``. If you wish to store a dictionary or other complex type, don't expect this to work. In this scenario, you might want to consider `pickling your objects <https://wiki.python.org/moin/UsingPickle>`_.
 
 Browser-Length and Persistent Sessions
 --------------------------------------
