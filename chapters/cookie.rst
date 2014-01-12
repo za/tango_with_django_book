@@ -128,7 +128,7 @@ The sensible place to assume a user enters the Rango site is at the index page. 
 	    visits = int(request.COOKIES.get('visits', '0'))
 	
 	    # Does the cookie last_visit exist?
-	    if request.COOKIES.has_key('last_visit'):
+	    if 'last_visit' in request.COOKIES:
 	        # Yes it does! Get the cookie's value.
 	        last_visit = request.COOKIES['last_visit']
 	        # Cast the value to a Python date/time object.
