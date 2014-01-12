@@ -46,8 +46,8 @@ By adding it to a file we can minimize the code in our template. Now update the 
 
 .. code-block:: html
 	
-	{% load static %}
         <!DOCTYPE html>
+	{% load static %}
         <html>
 	<head>
 	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
