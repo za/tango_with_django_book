@@ -42,7 +42,7 @@ If you download or look at the source for http://getbootstrap.com/2.3.2/examples
 	    }
 	}
 
-By adding it to a file we can minimise the code in our template. Now update the ``<head>`` section of ``base.html`` as follows.
+By adding it to a file we can minimize the code in our template. Now update the ``<head>`` section of ``base.html`` as follows.
 
 .. code-block:: html
 	
