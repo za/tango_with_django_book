@@ -276,7 +276,7 @@ Now create a new template file, ``rango/register.html`` and add the following co
 	    </body>
 	</html>
 
-This HTML template makes use of the ``register`` variable we used in our view indicating whether registration was successful or not. Note that ``registered`` must be ``False`` in order for the template to display the registration form - otherwise, apart from the title, only a success message is displayed.
+This HTML template makes use of the ``registered`` variable we used in our view indicating whether registration was successful or not. Note that ``registered`` must be ``False`` in order for the template to display the registration form - otherwise, apart from the title, only a success message is displayed.
 
 .. warning::  
 	You should be aware of the ``enctype`` attribute for the ``<form>`` element. When you want users to upload files from a form, it's an absolute *must* to set ``enctype`` to ``multipart/form-data``. This attribute and value combination instructs your browser to send form data in a special way back to the server. Essentially, the data representing your file is split into a series of chunks and sent. For more information, check out `this great Stack Overflow answer <http://stackoverflow.com/a/4526286>`_. You should also should remember to include the CSRF token, too. Ensure that you include ``{% csrf_token %}`` within your ``<form>`` element.
