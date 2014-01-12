@@ -2,7 +2,7 @@
 
 User Authentication
 ===================
-The aim of this next part of the tutorial is to get you familiar with the user authentication mechanisms provided by Django. We'll by using the ``auth`` application provided as part of a standard Django installation in package ``django.contrib.auth``. According to `Django's official documentation on Authentication <https://docs.djangoproject.com/en/1.5/topics/auth/>`_, the application consists of the following aspects.
+The aim of this next part of the tutorial is to get you familiar with the user authentication mechanisms provided by Django. We'll be using the ``auth`` application provided as part of a standard Django installation in package ``django.contrib.auth``. According to `Django's official documentation on Authentication <https://docs.djangoproject.com/en/1.5/topics/auth/>`_, the application consists of the following aspects.
 
 - *Users.*
 - *Permissions:* a series of binary flags (e.g. yes/no) determining what a user may or may not do.
