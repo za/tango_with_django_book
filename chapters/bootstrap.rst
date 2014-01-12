@@ -72,7 +72,7 @@ The reason to add them here is so that the page can load up faster. The browser 
 
 Structuring the Base Template
 .............................
-If you take a close look at the fluid html source, you'll notice it has a lot of structure in it created by a series of ``<div>`` tags. Essentially the is broken into three parts - the top navigation bar, the main pane (houses the side bar and the main content pane), and a footer. 
+If you take a close look at the fluid html source, you'll notice it has a lot of structure in it created by a series of ``<div>`` tags. Essentially the page is broken into three parts - the top navigation bar, the main pane (houses the side bar and the main content pane), and a footer. 
 
 In the body of base put in the navigation bar code, just like in the example below.
 
