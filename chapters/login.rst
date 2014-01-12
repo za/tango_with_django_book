@@ -119,7 +119,7 @@ With our authentication infrastructure laid out, we can now begin to build onto 
 
 .. note:: We feel it's important to note that there are several off-the-shelf user registration packages available for you to download and use in your Django projects. Examples include the `Django Registration application <https://bitbucket.org/ubernostrum/django-registration/>`_, and you can also check out the table on `this webpage <https://www.djangopackages.com/grids/g/registration/>`_ which lists other registration packages. While these exist, we'll be showing you how to set up everything from scratch. While this is at odds with the DRY principle, it is also important to get a feeling for the user authentication package and feature. It will also re-enforce your understanding of working with forms, how to extend upon the user model, and how to upload media.
 
-To set everything the user registration functionality will we go through the following steps:
+To set everything up for the user registration functionality we will go through the following steps:
 
 #. Create a ``UserForm`` and ``UserProfileForm``.
 #. Add a view to handle the creation of a new user.
