@@ -352,7 +352,7 @@ In ``rango/views.py`` create a new function called ``user_login()`` and add the 
 	        # If we have a User object, the details are correct.
 	        # If None (Python's way of representing the absence of a value), no user
 	        # with matching credentials was found.
-	        if user is not None:
+	        if user:
 	            # Is the account active? It could have been disabled.
 	            if user.is_active:
 	                # If the account is valid and active, we can log the user in.
