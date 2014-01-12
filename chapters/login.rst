@@ -541,7 +541,7 @@ This ensures that the ``login_required()`` decorator will redirect any user not 
 
 Logging Out
 -----------
-To enable users to log out gracefully it would be nice to provide a logout option to users. Django comes with a handy ``logout()`` function that take cares of ensuring that the user is logged out, that their session is ended, and that if they subsequent try to access a view, that it will deny them access.
+To enable users to log out gracefully it would be nice to provide a logout option to users. Django comes with a handy ``logout()`` function that takes care of ensuring that the user is logged out, that their session is ended, and that if they subsequently try to access a view, it will deny them access.
 
 To provide log out functionality in ``rango/views.py`` add the a view called ``user_logout()`` with the following code:
 
