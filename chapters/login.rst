@@ -500,7 +500,7 @@ The direct approach checks to see whether a user is logged in, via the ``user.is
 
 The second approach uses `Python decorators <http://wiki.python.org/moin/PythonDecorators>`_. Decorators are named after a `software design pattern by the same name <http://en.wikipedia.org/wiki/Decorator_pattern>`_. They can dynamically alter the functionality of a function, method or class without having to directly edit the source code of the given function, method or class.
 
-Django provides decorator called, ``login_required()`` which we can attach to any view, where we require the user to be logged in. If a user is not logged in and they try to access a page which calls that view, then the user is redirected to another page which you can set, typically the login page.
+Django provides a decorator called ``login_required()``, which we can attach to any view where we require the user to be logged in. If a user is not logged in and they try to access a page which calls that view, then the user is redirected to another page which you can set, typically the login page.
 
 Restricting Access with a Decorator
 ...................................
