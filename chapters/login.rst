@@ -382,7 +382,7 @@ If a valid form is sent, the username and password are extracted from the form. 
 
 If we retrieve a ``User`` object, we can then check if the account is active or inactive - and return the appropriate response to the client's browser.
 
-However, if an invalid form is sent, because the user did not add both a username and password the login form is presented back to the user will form error messages (i.e. username/password is missing).
+However, if an invalid form is sent, because the user did not add both a username and password the login form is presented back to the user with form error messages (i.e. username/password is missing).
 
 Of particular interest in the code sample above is the use of the built-in Django machinery to help with the authentication process. Note the use of the ``authenticate()`` function to check whether the username and password provided match to a valid user account, and the ``login()`` function to signify to Django that the user is to be logged in. 
 
