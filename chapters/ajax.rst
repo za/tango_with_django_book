@@ -151,7 +151,7 @@ Now in "rango-ajax.js" you will need to add some JQuery code to perform an AJAX 
 
 This piece of JQuery/Javascript will add an event handler to the element with id ``#likes``, i.e. the button. When clicked, it will extract the category id from the button element, and then make an AJAX GET request which will make a call to ``/rango/like_category/`` encoding the ``category id`` in the request. If the request is successful, then the HTML element with id like_count (i.e. the <strong> ) is updated with the data returned by the request, and the HTML element with id likes (i.e. the <button>) is hidden.
 
-There is a lot going on here and getting the mechanics right when constructing pages with AJAX can be a bit tricky. Essentially here, when the button is clicked an AJAX request is made, given our url mapping, this invokes the ``like_category`` view which updates the category and returns a new number of likes. When the AJAX request receives the response it updates part of the page i.e. the text and the button.
+There is a lot going on here and getting the mechanics right when constructing pages with AJAX can be a bit tricky. Essentially here, when the button is clicked an AJAX request is made, given our url mapping, this invokes the ``like_category`` view which updates the category and returns a new number of likes. When the AJAX request receives the response it updates parts of the page, i.e. the text and the button.
 
 Adding Inline Category Suggestions
 ----------------------------------
