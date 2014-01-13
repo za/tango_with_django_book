@@ -125,7 +125,7 @@ Create a view called, ``like_category`` in ``rango/views.py`` which will examine
 		
 	    return HttpResponse(likes)
 
-On examining the code, you will see that we are only allowing authenticated users to denote that they like a category. The view assumes that a variable ``category_id`` has been passed through via a GET or POST so that the we can identify the category to update. In this view, we could also track and record that a particular user has "liked" this category if we wanted - but he we are keeping it simple to focus on the AJAX mechanics.
+On examining the code, you will see that we are only allowing authenticated users to denote that they like a category. The view assumes that a variable ``category_id`` has been passed through via a GET so that the we can identify the category to update. In this view, we could also track and record that a particular user has "liked" this category if we wanted - but we are keeping it simple to focus on the AJAX mechanics.
 
 Don't forget to add in the URL mapping, into ``rango/urls.py``. Update the ``urlpatterns`` by adding in:
 
