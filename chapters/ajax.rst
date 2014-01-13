@@ -169,7 +169,7 @@ To do this you will need to do the following.
 	- If the query string is not empty, ask the Category model to get the top 8 categories that start with the query string.
 	- The list of category objects will then be combined into a piece of HTML via template. 
 * Instead of creating a template called ``suggestions.html`` re-use the ``category_list.html`` as it will be displaying data of the same type (i.e. categories).
-* To let the client ask for this data, you will need to create a URL mapping lets call it *category_suggest*
+* To let the client ask for this data, you will need to create a URL mapping; lets call it *category_suggest*
 
 With the mapping, view, and template for this view in place, you will need to update the ``base.html`` template and add in some javascript so that the categories can be displayed as the user types.
 
