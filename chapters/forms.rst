@@ -144,26 +144,21 @@ Create the file ``templates/rango/add_category.html``. Within the file, add the 
 	    <body>
 	        <h1>Add a Category</h1>
 	        
-	        {% if not category_name_url %}
-	            <div style="color: red;">The specified category does not exist!</div>
-	        {% else %}
-	            <form id="category_form" method="post" action="/rango/add_category/">
+	        <form id="category_form" method="post" action="/rango/add_category/">
 	            
-	                {% csrf_token %}
-	                {% for hidden in form.hidden_fields %}
-	                    {{ hidden }}
-	                {% endfor %}	
+	            {% csrf_token %}
+	            {% for hidden in form.hidden_fields %}
+	                {{ hidden }}
+	            {% endfor %}	
+	        
+	            {% for field in form.visible_fields %}
+	                {{ field.errors }}
+	                {{ field.help_text}}
+	                {{ field }}
+	            {% endfor %}
 	            
-	                {% for field in form.visible_fields %}
-	                    {{ field.errors }}
-	                    {{ field.help_text}}
-	                    {{ field }}
-	                {% endfor %}
-	            
-	                <input type="submit" name="submit" value="Create Category" />
-	            </form>
-	        {% endif %}
-	    
+	            <input type="submit" name="submit" value="Create Category" />
+	        </form>
 	    </body>
 	
 	</html>
@@ -282,9 +277,8 @@ A next logical step would be to allow users to add pages to a given category. To
 	                page.category = cat
 	            except Category.DoesNotExist:
 	                # If we get here, the category does not exist.
-	                # We render the add_page.html template without a context dictionary.
-	                # This will trigger the red text to appear in the template!
-                	return render_to_response('rango/add_page.html', {}, context)
+	                # Go back and render the add category form as a way of saying the category does not exist.
+                	return render_to_response('rango/add_category.html', {}, context)
 	
 	            # Also, create a default value for the number of views.
 	            page.views = 0
