@@ -293,7 +293,9 @@ During the course of building Rango, we will be uploading and handling images. T
 	
 	$ pip install pil
 
-Again, use ``sudo`` if required.
+Again, use ``sudo`` if required. 
+
+Also note that ``pil`` may be out of date, depending on what version of Python you have installed, if this is the case, then you can install ``pillow`` instead which is a replacement for ``pil``.
 
 Installing Other Python Packages
 ********************************
