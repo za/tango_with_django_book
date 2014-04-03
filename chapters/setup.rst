@@ -30,9 +30,9 @@ Creating your Django Project
 ----------------------------
 To create a new Django Project, go to your ``code`` directory (i.e. your ``<workspace>`` directory), and issue the following command:
 
-``$ django-admin.py startproject tango_with_django_project``
+``$ python django-admin.py startproject tango_with_django_project``
 
-This command will invoke the ``django-admin.py`` script, which will set up a new Django project called ``tango_with_django_project`` for you. Typically, we append ``_project`` to the end of our Django project directories so we know exactly what they contain - but the naming convention is entirely up to you.
+Note that on Windows you may have to use the full path to the django-admin.py script. This command will invoke the ``django-admin.py`` script, which will set up a new Django project called ``tango_with_django_project`` for you. Typically, we append ``_project`` to the end of our Django project directories so we know exactly what they contain - but the naming convention is entirely up to you.
 
 You'll now notice within your workspace is a directory set to the name of your new project, ``tango_with_django_project``. Within this newly created directory, you should see two items:
 
@@ -230,7 +230,7 @@ What you've just learnt in this chapter can be succinctly summarised into a list
 
 Creating a new Django Project
 .............................
-#. To create the project run, ``django-admin.py startproject <name>``, where ``<name>`` is the name of the project you wish to create.
+#. To create the project run, ``python django-admin.py startproject <name>``, where ``<name>`` is the name of the project you wish to create.
 
 Creating a new Django application
 .................................

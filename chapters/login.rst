@@ -162,6 +162,7 @@ You shouldn't forget to include the required classes at the top of the ``forms.p
 	
 	from rango.models import UserProfile
 	from django.contrib.auth.models import User
+	from django import forms
 
 
 Creating the ``register()`` View
