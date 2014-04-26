@@ -153,7 +153,7 @@ Create the file ``templates/rango/add_category.html``. Within the file, add the 
 	        
 	            {% for field in form.visible_fields %}
 	                {{ field.errors }}
-	                {{ field.help_text}}
+	                {{ field.help_text }}
 	                {{ field }}
 	            {% endfor %}
 	            
