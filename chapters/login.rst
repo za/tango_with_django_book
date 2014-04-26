@@ -2,7 +2,7 @@
 
 User Authentication
 ===================
-The aim of this next part of the tutorial is to get you familiar with the user authentication mechanisms provided by Django. We'll by using the ``auth`` application provided as part of a standard Django installation in package ``django.contrib.auth``. According to `Django's official documentation on Authentication <https://docs.djangoproject.com/en/1.5/topics/auth/>`_, the application consists of the following aspects.
+The aim of this next part of the tutorial is to get you familiar with the user authentication mechanisms provided by Django. We'll be using the ``auth`` application provided as part of a standard Django installation in package ``django.contrib.auth``. According to `Django's official documentation on Authentication <https://docs.djangoproject.com/en/1.5/topics/auth/>`_, the application consists of the following aspects.
 
 - *Users.*
 - *Permissions:* a series of binary flags (e.g. yes/no) determining what a user may or may not do.
@@ -119,7 +119,7 @@ With our authentication infrastructure laid out, we can now begin to build onto 
 
 .. note:: We feel it's important to note that there are several off-the-shelf user registration packages available for you to download and use in your Django projects. Examples include the `Django Registration application <https://bitbucket.org/ubernostrum/django-registration/>`_, and you can also check out the table on `this webpage <https://www.djangopackages.com/grids/g/registration/>`_ which lists other registration packages. While these exist, we'll be showing you how to set up everything from scratch. While this is at odds with the DRY principle, it is also important to get a feeling for the user authentication package and feature. It will also re-enforce your understanding of working with forms, how to extend upon the user model, and how to upload media.
 
-To set everything the user registration functionality will we go through the following steps:
+To set everything up for the user registration functionality we will go through the following steps:
 
 #. Create a ``UserForm`` and ``UserProfileForm``.
 #. Add a view to handle the creation of a new user.
@@ -277,7 +277,7 @@ Now create a new template file, ``rango/register.html`` and add the following co
 	    </body>
 	</html>
 
-This HTML template makes use of the ``register`` variable we used in our view indicating whether registration was successful or not. Note that ``registered`` must be ``False`` in order for the template to display the registration form - otherwise, apart from the title, only a success message is displayed.
+This HTML template makes use of the ``registered`` variable we used in our view indicating whether registration was successful or not. Note that ``registered`` must be ``False`` in order for the template to display the registration form - otherwise, apart from the title, only a success message is displayed.
 
 .. warning::  
 	You should be aware of the ``enctype`` attribute for the ``<form>`` element. When you want users to upload files from a form, it's an absolute *must* to set ``enctype`` to ``multipart/form-data``. This attribute and value combination instructs your browser to send form data in a special way back to the server. Essentially, the data representing your file is split into a series of chunks and sent. For more information, check out `this great Stack Overflow answer <http://stackoverflow.com/a/4526286>`_. You should also should remember to include the CSRF token, too. Ensure that you include ``{% csrf_token %}`` within your ``<form>`` element.
@@ -353,7 +353,7 @@ In ``rango/views.py`` create a new function called ``user_login()`` and add the 
 	        # If we have a User object, the details are correct.
 	        # If None (Python's way of representing the absence of a value), no user
 	        # with matching credentials was found.
-	        if user is not None:
+	        if user:
 	            # Is the account active? It could have been disabled.
 	            if user.is_active:
 	                # If the account is valid and active, we can log the user in.
@@ -383,7 +383,7 @@ If a valid form is sent, the username and password are extracted from the form. 
 
 If we retrieve a ``User`` object, we can then check if the account is active or inactive - and return the appropriate response to the client's browser.
 
-However, if an invalid form is sent, because the user did not add both a username and password the login form is presented back to the user will form error messages (i.e. username/password is missing).
+However, if an invalid form is sent, because the user did not add both a username and password the login form is presented back to the user with form error messages (i.e. username/password is missing).
 
 Of particular interest in the code sample above is the use of the built-in Django machinery to help with the authentication process. Note the use of the ``authenticate()`` function to check whether the username and password provided match to a valid user account, and the ``login()`` function to signify to Django that the user is to be logged in. 
 
@@ -501,7 +501,7 @@ The direct approach checks to see whether a user is logged in, via the ``user.is
 
 The second approach uses `Python decorators <http://wiki.python.org/moin/PythonDecorators>`_. Decorators are named after a `software design pattern by the same name <http://en.wikipedia.org/wiki/Decorator_pattern>`_. They can dynamically alter the functionality of a function, method or class without having to directly edit the source code of the given function, method or class.
 
-Django provides decorator called, ``login_required()`` which we can attach to any view, where we require the user to be logged in. If a user is not logged in and they try to access a page which calls that view, then the user is redirected to another page which you can set, typically the login page.
+Django provides a decorator called ``login_required()``, which we can attach to any view where we require the user to be logged in. If a user is not logged in and they try to access a page which calls that view, then the user is redirected to another page which you can set, typically the login page.
 
 Restricting Access with a Decorator
 ...................................
@@ -542,7 +542,7 @@ This ensures that the ``login_required()`` decorator will redirect any user not 
 
 Logging Out
 -----------
-To enable users to log out gracefully it would be nice to provide a logout option to users. Django comes with a handy ``logout()`` function that take cares of ensuring that the user is logged out, that their session is ended, and that if they subsequent try to access a view, that it will deny them access.
+To enable users to log out gracefully it would be nice to provide a logout option to users. Django comes with a handy ``logout()`` function that takes care of ensuring that the user is logged out, that their session is ended, and that if they subsequently try to access a view, it will deny them access.
 
 To provide log out functionality in ``rango/views.py`` add the a view called ``user_logout()`` with the following code:
 

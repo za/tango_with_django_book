@@ -42,12 +42,12 @@ If you download or look at the source for http://getbootstrap.com/2.3.2/examples
 	    }
 	}
 
-By adding it to a file we can minimise the code in our template. Now update the ``<head>`` section of ``base.html`` as follows.
+By adding it to a file we can minimize the code in our template. Now update the ``<head>`` section of ``base.html`` as follows.
 
 .. code-block:: html
 	
-	{% load static %}
         <!DOCTYPE html>
+	{% load static %}
         <html>
 	<head>
 	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -72,7 +72,7 @@ The reason to add them here is so that the page can load up faster. The browser 
 
 Structuring the Base Template
 .............................
-If you take a close look at the fluid html source, you'll notice it has a lot of structure in it created by a series of ``<div>`` tags. Essentially the is broken into three parts - the top navigation bar, the main pane (houses the side bar and the main content pane), and a footer. 
+If you take a close look at the fluid html source, you'll notice it has a lot of structure in it created by a series of ``<div>`` tags. Essentially the page is broken into three parts - the top navigation bar, the main pane (houses the side bar and the main content pane), and a footer. 
 
 In the body of base put in the navigation bar code, just like in the example below.
 
@@ -179,7 +179,7 @@ Now that we have the ``base.html`` all set up and ready to go, we can do a reall
 
 	A screenshot of the About page with Bootstrap Styling applied.
 
-With all pages fitted with hero unit ``<div>`` tags Rango you should be looking pretty good. However, you will notice that some of the pages still look pretty ugly, especially the pages with forms (see the figure below). Later in this chapter we will update these forms.
+With all pages fitted with hero-unit ``<div>`` tags Rango should be looking pretty good. However, you will notice that some of the pages still look pretty ugly, especially the pages with forms (see the figure below). Later in this chapter we will update these forms.
 
 .. _fig-register-initial:
 

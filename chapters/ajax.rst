@@ -125,7 +125,7 @@ Create a view called, ``like_category`` in ``rango/views.py`` which will examine
 		
 	    return HttpResponse(likes)
 
-On examining the code, you will see that we are only allowing authenticated users to denote that they like a category. The view assumes that a variable ``category_id`` has been passed through via a GET or POST so that the we can identify the category to update. In this view, we could also track and record that a particular user has "liked" this category if we wanted - but he we are keeping it simple to focus on the AJAX mechanics.
+On examining the code, you will see that we are only allowing authenticated users to denote that they like a category. The view assumes that a variable ``category_id`` has been passed through via a GET so that the we can identify the category to update. In this view, we could also track and record that a particular user has "liked" this category if we wanted - but we are keeping it simple to focus on the AJAX mechanics.
 
 Don't forget to add in the URL mapping, into ``rango/urls.py``. Update the ``urlpatterns`` by adding in:
 
@@ -149,9 +149,9 @@ Now in "rango-ajax.js" you will need to add some JQuery code to perform an AJAX 
 	               });
 	    });
 
-This piece of JQuery/Javascript will add an event handler to the element with id ``#likes``, i.e. the button. When clicked, it will extract the category id from the button element, and then make an AJAX GET request which will make a call to ``/rango/like_category/`` encoding the ``category id`` in the request. If the request is successful, then the HTML element with id like_count (i.e. the <b> ) is updated with the data returned by the request, and the HTML element with id likes (i.e. the <button>) is hidden.
+This piece of JQuery/Javascript will add an event handler to the element with id ``#likes``, i.e. the button. When clicked, it will extract the category id from the button element, and then make an AJAX GET request which will make a call to ``/rango/like_category/`` encoding the ``category id`` in the request. If the request is successful, then the HTML element with id like_count (i.e. the <strong> ) is updated with the data returned by the request, and the HTML element with id likes (i.e. the <button>) is hidden.
 
-There is a lot going on here and getting the mechanics right when constructing pages with AJAX can be a bit tricky. Essentially here, when the button is clicked an AJAX request is made, given our url mapping, this invokes the ``like_category`` view which updates the category and returns a new number of likes. When the AJAX request receives the response it update part of the page i.e. the text and the button.
+There is a lot going on here and getting the mechanics right when constructing pages with AJAX can be a bit tricky. Essentially here, when the button is clicked an AJAX request is made, given our url mapping, this invokes the ``like_category`` view which updates the category and returns a new number of likes. When the AJAX request receives the response it updates parts of the page, i.e. the text and the button.
 
 Adding Inline Category Suggestions
 ----------------------------------
@@ -169,7 +169,7 @@ To do this you will need to do the following.
 	- If the query string is not empty, ask the Category model to get the top 8 categories that start with the query string.
 	- The list of category objects will then be combined into a piece of HTML via template. 
 * Instead of creating a template called ``suggestions.html`` re-use the ``category_list.html`` as it will be displaying data of the same type (i.e. categories).
-* To let the client ask for this data, you will need to create a URL mapping lets call it *category_suggest*
+* To let the client ask for this data, you will need to create a URL mapping; lets call it *category_suggest*
 
 With the mapping, view, and template for this view in place, you will need to update the ``base.html`` template and add in some javascript so that the categories can be displayed as the user types.
 

@@ -2,7 +2,7 @@
 
 Adding External Search Functionality
 ====================================
-At this stage, our Rango application is looking pretty good - a majority of our required functionality is implemented. In this chapter, we will connect Rango up to Bing's Search API so that users can also search for pages, rather than just used the categories. First let's get started by setting up an account to use Bing's Search API, then construct a wrapper to call Bing's web search functionality before integrating the search into Rango.
+At this stage, our Rango application is looking pretty good - a majority of our required functionality is implemented. In this chapter, we will connect Rango up to Bing's Search API so that users can also search for pages, rather than just use the categories. First let's get started by setting up an account to use Bing's Search API, then construct a wrapper to call Bing's web search functionality before integrating the search into Rango.
 
 The Bing Search API
 -------------------
