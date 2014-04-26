@@ -234,7 +234,7 @@ As you can see, we have added in a rather complex entry that will invoke ``view.
 		
 		url(r'^category/(?P<category_name_url>\w+)/$', views.category, name='category')
 	
-	We can from here deduce that the characters (both alphanumeric and underscores) between ``category/`` and the trailing ``/`` at the end of a matching URL are to be passed to method ``views.category()`` as named parameter ``category_name_url``. For example, the URL ``category/python_books/`` would yield a ``category_name_url`` or ``python_books``.
+	We can from here deduce that the characters (both alphanumeric and underscores) between ``category/`` and the trailing ``/`` at the end of a matching URL are to be passed to method ``views.category()`` as named parameter ``category_name_url``. For example, the URL ``category/python_books/`` would yield a ``category_name_url`` of ``python_books``.
 	
 	As you should remember, all view functions defined as part of a Django project *must* take at least one parameter. This is typically called ``request`` - and provides access to information related to the given HTTP request made by the user. When parameterising URLs, you supply additional named parameters to the signature for the given view. Using the same example, our ``category`` view signature is altered such that it now looks like the following.
 	
