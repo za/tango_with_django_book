@@ -12,7 +12,7 @@ Let's start by checking that your Python and Django installations are installed 
 
 ::
 	
-	$ python -c "import platform; print platform.python_version()"
+	$ python --version
 	2.7.5
 
 This starts your Python interpreter and executes the code within the string provided as part of the ``-c`` switch. You should see the version of your Python installation printed as the output to the process. If the version displayed is anything but ``2.7.5``, you will need to go back to Section :ref:`installing-software` and verify you have completed all the relevant steps for your operating system.
