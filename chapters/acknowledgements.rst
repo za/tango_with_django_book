@@ -36,7 +36,13 @@ In this book, we have pulled together the relevant information and details so th
 * Adam Kikowski
 * Thomas Whyyou @thomaswhyyou
 * Dan C
-
+* Saex https://github.com/SaeX
+* Breakerfall https://github.com/breakerfall
+* Michael Herman https://github.com/mjhea0
+* Praestgias https://github.com/praestigias
+* Claus Conrad https://github.com/cconrad
+* nCrazed https://github.com/nCrazed
+* rnevius https://github.com/rnevius
 
 for their suggestions, comments and feedback, which have greatly improved the quality of this resource.
 
