@@ -53,7 +53,7 @@ By adding it to a file we can minimise the code in our template. Now update the 
 	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	    <!-- Bootstrap -->
 	    <link href="{% static 'css/bootstrap-fluid-adj.css' %}" rel="stylesheet">
-	    <link href="{% static 'css/bootstrap.min.css'% }" rel="stylesheet" media="screen">
+	    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" media="screen">
 	    <link href="{% static 'css/bootstrap-responsive.css' %}" rel="stylesheet">
 	    
 	    <title>Rango - {% block title %}How to Tango with Django!{% endblock %}</title>

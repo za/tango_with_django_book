@@ -34,6 +34,9 @@ In this book, we have pulled together the relevant information and details so th
 * Mike Gleen
 * Oleg Belausov
 * Adam Kikowski
+* Thomas Whyyou @thomaswhyyou
+* Dan C
+
 
 for their suggestions, comments and feedback, which have greatly improved the quality of this resource.
 
