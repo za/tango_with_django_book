@@ -43,7 +43,9 @@ Chapter 7
 Chapter 11
 ---------
 
-- Update to the latest Bootstrap (3.0.2) version as Bootstrap 2.3.2 is no longer officially supported
+- Update to the latest Bootstrap (3.0.3) version as Bootstrap 2.3.2 is no longer officially supported (@rnevius)
+
+- Use Google's CDN for jQuery, instead of downloading. This is a good habit to get into. See this useful discussion on stackoverflow: http://stackoverflow.com/a/2180401
 
 - Add a note to discuss the problem of forgetting to add a slash to the end of a URL.
 
