@@ -2,7 +2,7 @@
 
 Models, Templates and Views
 ===========================
-Now that we have our models set up and populated with some data, we can now start putting things together. We'll be figuring out how to source data from our models in our views, and how to present this data within our templates.
+Now that we have the models set up and populated with some data, we can now start putting things together. We'll be figuring out how to access data from the models within the views, and how to present this data via the templates.
 
 Basic Workflow: Data Driven Pages
 ---------------------------------
@@ -36,9 +36,6 @@ With the first step out of the way, we then want to modify our ``index()`` funct
 .. code-block:: python
 	
 	def index(request):
-	    # Obtain the context from the HTTP request.
-	    context = RequestContext(request)
-	    
 	    # Query the database for a list of ALL categories currently stored.
 	    # Order the categories by no. likes in descending order.
 	    # Retrieve the top 5 only - or all if less than 5.
@@ -47,11 +44,14 @@ With the first step out of the way, we then want to modify our ``index()`` funct
 	    context_dict = {'categories': category_list}
 	    
 	    # Render the response and send it back!
-	    return render_to_response('rango/index.html', context_dict, context)
+	    return render(request, 'rango/index.html', context_dict)
 
 Here we have performed steps two and three in one go. First, we queried the ``Category`` model to retrieve the top five categories. Here we used the ``order_by()`` method to sort by the number of likes in descending order - hence the inclusion of the ``-``. We then restricted this list to the first 5 ``Category`` objects in the list.
 
-With the query complete, we passed a reference to the list (stored as variable ``category_list``) to a new dictionary, ``context_dict``. This dictionary is then passed as part of the context for the template engine in the ``render_to_response()`` call.
+With the query complete, we passed a reference to the list (stored as variable ``category_list``) to the dictionary, ``context_dict``. This dictionary is then passed as part of the context for the template engine in the ``render()`` call.
+
+.. warning:: Note that the Category Model contains the field ``likes``. So for this to work you need to have completed the exercises in the previous chapter, i.e. the Category Model needs to be updated to include the ``likes`` field. 
+
 
 Modifying the Index Template
 ............................
@@ -113,6 +113,69 @@ Instead, we could just use the category name as part of the URL. ``/rango/catego
 
 .. note:: Designing clean URLs is an important aspect of web design. See `Wikipedia's article on Clean URLs <http://en.wikipedia.org/wiki/Clean_URL>`_ for more details.
 
+
+#TODO(leifos): To handle this problem we are going to make use of the slugify function provided by Django, based on the answers provided at: http://stackoverflow.com/questions/837828/how-do-i-create-a-slug-in-django
+
+
+Update Category Table with Slug Field
+.....................................
+To make clean urls we are going to include a slug field in the ``Category`` model. First we need to import the function ``slugify`` from django, which will replace whitespace with hyphens, i.e "how do i create a slug in django" turns into "how-do-i-create-a-slug-in-django".
+
+.. warning:: While you can use spaces in URLs, it is considered to be unsafe to use them. Check out `IETF Memo on URLs <http://www.ietf.org/rfc/rfc1738.txt>`_ to read more.
+
+Then we need to override the ``save`` method of the ``Category`` model, which we will call the ``slugify`` method and update the ``slug`` field with it. Note that everytime the category name changes, the slug will also change. Update your model, as shown below, and add in the import.
+
+.. code-block:: python
+
+
+	from django.template.defaultfilters import slugify
+
+	class Category(models.Model):
+		name = models.CharField(max_length=128, unique=True)
+		views = models.IntegerField(default=0)
+		likes = models.IntegerField(default=0)
+		slug = models.SlugField(unique=True)
+		
+		def save(self, *args, **kwargs):
+			self.slug = slugify(self.name)
+			super(Category, self).save(*args, **kwargs)
+
+		def __unicode__(self):
+			return self.name
+
+
+Now that you have performed this update to the Model, you will need to perform the migration. 
+
+.. 
+
+
+	$ python manage.py makemigrations rango
+	$ python manage.py migrate
+	
+	
+Since we did not provide a default value for the slug, and we already have existing data in the model, then the migrate command will give you two options. Select the option to provide a default, and enter ''. Dont worry this will get updated shortly. Now re-run your population script. Since the ``save`` method is called for each Cateogry, the overrided ``save`` method will be executed, updating the slug field. Run the server, and inspect the data in the models via the admin interface.
+
+In the admin interface you may want it to automatically pre-populate the slug field as your type in the category name. To do this you can update ``rango/admin.py`` with the following code:
+
+
+.. code-block:: python
+
+	
+	from django.contrib import admin
+	from rango.models import Category, Page
+
+	# Add in this class to customized the Admin Interface
+	class CategoryAdmin(admin.ModelAdmin):
+	    prepopulated_fields = {'slug':('name',)}
+
+	# Update the registeration to include this customised interface
+	admin.site.register(Category, CategoryAdmin)
+	admin.site.register(Page)
+
+
+Try out the admin interface and add in a new category. Pretty cool, hey! Now that we have added in slug fields we can now use them as clean urls :-).
+
+
 Category Page Workflow
 ......................
 With our URLs design chosen, let's get started. We'll undertake the following steps.
@@ -137,24 +200,17 @@ Next, we can add our new view, ``category()``.
 
 .. code-block:: python
 	
-	def category(request, category_name_url):
-	    # Request our context from the request passed to us.
-	    context = RequestContext(request)
-	    
-	    # Change underscores in the category name to spaces.
-	    # URLs don't handle spaces well, so we encode them as underscores.
-	    # We can then simply replace the underscores with spaces again to get the name.
-	    category_name = category_name_url.replace('_', ' ')
+	def category(request, category_name_slug):
 	    
 	    # Create a context dictionary which we can pass to the template rendering engine.
-	    # We start by containing the name of the category passed by the user.
-	    context_dict = {'category_name': category_name}
+	    context_dict = {}
 	    
 	    try:
-	        # Can we find a category with the given name?
+	        # Can we find a category name slug with the given name?
 	        # If we can't, the .get() method raises a DoesNotExist exception.
 	        # So the .get() method returns one model instance or raises an exception.
-	        category = Category.objects.get(name=category_name)
+	        category = Category.objects.get(slug=category_name_slug)
+			context_dict['category_name'] = category.name
 	        
 	        # Retrieve all of the associated pages.
 	        # Note that filter returns >= 1 model instance.
@@ -171,13 +227,10 @@ Next, we can add our new view, ``category()``.
 	        pass
 	    
 	    # Go render the response and return it to the client.
-	    return render_to_response('rango/category.html', context_dict, context)
+	    return render(request, 'rango/category.html', context_dict)
 
-Our new view follows the same basic steps as our ``index()`` view. We first obtain the context of the request, then build a context dictionary, render the template, and send the result back. In this case, the difference is that the context dictionary building is a little more complex. To build our context dictionary, we need to determine which category to look at by using the value passed as parameter ``category_name_url`` to the ``category()`` view function. Once we have determined which category to look for, we can pull the relevant information from the database and append the results to our context dictionary, ``context_dict``. We'll figure out how to get the value for ``category_name_url`` from the URL shortly.
+Our new view follows the same basic steps as our ``index()`` view. We first define a context dictionary, then we attempt to extract the data from the models, and add in the relevant data to the context dictionary. We determine which category by using the value passed as parameter ``category_name_slug`` to the ``category()`` view function. If the category is found in the Category model, we can then pull out the associated Pages, and add this to the context dictionary, ``context_dict``. 
 
-You will have also seen in the ``category()`` view function we assume that the ``category_name_url`` is the category name where spaces are converted to underscores. We therefore replace all the underscores with spaces. This is unfortunately a pretty crude way to handle the decoding and encoding of the category name within the URL. As an exercise later, it'll be your job to create two functions to encode and decode category name.
-
-.. warning:: While you can use spaces in URLs, it is considered to be unsafe to use them. Check out `IETF Memo on URLs <http://www.ietf.org/rfc/rfc1738.txt>`_ to read more.
 
 Category Template
 .................
@@ -224,55 +277,32 @@ Now let's have a look at how we actually pass the value of the ``category_name_u
 	urlpatterns = patterns('',
 	    url(r'^$', views.index, name='index'),
 	    url(r'^about/$', views.about, name='about'),
-	    url(r'^category/(?P<category_name_url>\w+)/$', views.category, name='category'),)  # New!
+	    url(r'^category/(?P<category_name_slug>\[\w\-]+)/$', views.category, name='category'),)  # New!
 
-As you can see, we have added in a rather complex entry that will invoke ``view.category()`` when the regular expression ``r'^(?P<category_name_url>\w+)/$'`` is matched. We set up our regular expression to look for any sequence of alphanumeric characters (e.g. a-z, A-Z, or 0-9) and underscores (_) before the trailing URL slash. This value is then passed to the view ``views.category()`` as parameter ``category_name_url``, the only argument after the mandatory ``request`` argument.
+As you can see, we have added in a rather complex entry that will invoke ``view.category()`` when the regular expression ``r'^(?P<category_name_slug>\w+)/$'`` is matched. We set up our regular expression to look for any sequence of alphanumeric characters (e.g. a-z, A-Z, or 0-9) and the hyphen(-) before the trailing URL slash. This value is then passed to the view ``views.category()`` as parameter ``category_name_slug``, the only argument after the mandatory ``request`` argument.
 
 .. note:: When you wish to parameterise URLs, it's important to ensure that your URL pattern matches the parameters that the corresponding view takes in. To elaborate further, let's take the example we added above. The pattern added was as follows.
 	
 	.. code-block:: python
 		
-		url(r'^category/(?P<category_name_url>\w+)/$', views.category, name='category')
+		url(r'^category/(?P<category_name_slug>\w+)/$', views.category, name='category')
 	
-	We can from here deduce that the characters (both alphanumeric and underscores) between ``category/`` and the trailing ``/`` at the end of a matching URL are to be passed to method ``views.category()`` as named parameter ``category_name_url``. For example, the URL ``category/python_books/`` would yield a ``category_name_url`` of ``python_books``.
+	We can from here deduce that the characters (both alphanumeric and underscores) between ``category/`` and the trailing ``/`` at the end of a matching URL are to be passed to method ``views.category()`` as named parameter ``category_name_slug``. For example, the URL ``category/python-books/`` would yield a ``category_name_slug`` of ``python-books``.
 	
 	As you should remember, all view functions defined as part of a Django project *must* take at least one parameter. This is typically called ``request`` - and provides access to information related to the given HTTP request made by the user. When parameterising URLs, you supply additional named parameters to the signature for the given view. Using the same example, our ``category`` view signature is altered such that it now looks like the following.
 	
 	.. code-block:: python
 		
-		def category(request, category_name_url):
+		def category(request, category_name_slug):
 		    # ... code here ...
 	
-	It's not the position of the additional parameters that matters, it's the *name* that must match anything defined within the URL pattern. Note how ``category_name_url`` defined in the URL pattern matches the ``category_name_url`` parameter defined for our view. Using ``category_name_url`` in our view will give ``python_books``, or whatever value was supplied as that part of the URL.
+	It's not the position of the additional parameters that matters, it's the *name* that must match anything defined within the URL pattern. Note how ``category_name_slug`` defined in the URL pattern matches the ``category_name_slug`` parameter defined for our view. Using ``category_name_slug`` in our view will give ``python-books``, or whatever value was supplied as that part of the URL.
 
 .. note:: Regular expressions may seem horrible and confusing at first, but there are tons of resources online to help you. `This cheat sheet <http://cheatography.com/davechild/cheat-sheets/regular-expressions/>`_ is an excellent resource for fixing regular expression problems.
 
-Modifying the Index View and Template
+Modifying the Index Template
 .....................................
-Our new view is set up and ready to go - but we need to do one more thing. Our index page view needs to be updated to provide users with a means to view the category pages that are listed. Update in the ``index()`` in ``rango/views.py`` as follows.
-
-.. code-block:: python
-	
-	def index(request):
-	    # Obtain the context from the HTTP request.
-	    context = RequestContext(request)
-	    
-	    # Query for categories - add the list to our context dictionary.
-	    category_list = Category.objects.order_by('-likes')[:5]
-	    context_dict = {'categories': category_list}
-	    
-	    # The following two lines are new.
-	    # We loop through each category returned, and create a URL attribute.
-	    # This attribute stores an encoded URL (e.g. spaces replaced with underscores).
-	    for category in category_list:
-	        category.url = category.name.replace(' ', '_')
-	    
-	    # Render the response and return to the client.
-	    return render_to_response('rango/index.html', context_dict, context)
-
-As explained in the inline commentary, we take each category that the database returns, then iterate through the list of categories encoding the name to make it URL friendly. This URL friendly value is then placed as an attribute inside the ``Category`` object (i.e. we take advantage of Python's dynamic typing to add this attribute on the fly). 
-
-We then pass the list of categories - ``category_list`` - to the context of the template so it can be rendered. With a ``url`` attribute now available for each category, we can update our ``index.html`` template to look like the example below.
+Our new view is set up and ready to go - but we need to do one more thing. Our index page template needs to be updated to provide users with a means to view the category pages that are listed. We can update the ``index.html`` template to now include a link to the category page via the slug.
 
 .. code-block:: html
 	
@@ -289,7 +319,7 @@ We then pass the list of categories - ``category_list`` - to the context of the 
 	            <ul>
 	                {% for category in categories %}
 	                <!-- Following line changed to add an HTML hyperlink -->
-	                <li><a href="/rango/category/{{ category.url }}">{{ category.name }}</a></li>
+	                <li><a href="/rango/category/{{ category.slug }}">{{ category.name }}</a></li>
 	                {% endfor %}
 	            </ul>
 	       {% else %}
@@ -299,7 +329,7 @@ We then pass the list of categories - ``category_list`` - to the context of the 
 	    </body>
 	</html>
 
-Here we have updated each list element (``<li>``) adding a HTML hyperlink (``<a>``). The hyperlink has an ``href`` attribute, which we use to specify the target URL defined by ``{{ category.url }}``. 
+Here we have updated each list element (``<li>``) adding a HTML hyperlink (``<a>``). The hyperlink has an ``href`` attribute, which we use to specify the target URL defined by ``{{ category.slug }}``. 
 
 Demo
 ....
@@ -317,13 +347,12 @@ Exercises
 Reinforce what you've learnt in this chapter by trying out the following exercises.
 
 * Modify the index page to also include the top 5 most viewed pages.
-* The encoding and decoding of the Category name to a URL is not particularly robust as every time we need to access the page we need to decode the URL. One way we can make sure the encoding and decoding is to use some functions to perform the encoding and decoding. 
-* While the encode and decode function help it is only part of the solution. How would you redesign the URL encoding so that it is more seamless and doesn't require encoding and decoding every time?
-* Undertake the `part three of official Django tutorial <https://docs.djangoproject.com/en/1.5/intro/tutorial03/>`_ if you have not done so already to further what you've learnt here.
+
+* Undertake the `part three of official Django tutorial <https://docs.djangoproject.com/en/1.7/intro/tutorial03/>`_ if you have not done so already to further what you've learnt here.
 
 Hints
 .....
 To help you with the exercises above, the following hints may be of some use to you. Good luck!
 
 * Update the population script to add some value to the views count for each page.
-* Create an encode and decode function to convert ``category_name_url`` to ``category_name`` and vice versa.
+

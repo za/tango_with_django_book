@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-How To Tango With Django
+How To Tango With Django 1.5.4
 ====================================================
 
 .. toctree::

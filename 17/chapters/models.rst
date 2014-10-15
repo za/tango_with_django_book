@@ -381,7 +381,8 @@ Exercises
 Now that you've completed the chapter, try out these exercises to reinforce and practice what you have learnt.
 
 * Update the Category model to include the additional attributes, ``views`` and ``likes`` where the default value  is zero.
-* Re-sync your database, and update your population script so that the Python category has 128 views and 64 likes, the Django category has 64 views and 32 likes, and the Other Frameworks category has 32 views and 16 likes.
+* Make the migrations for your app/model, then migrate your database
+* Update your population script so that the Python category has 128 views and 64 likes, the Django category has 64 views and 32 likes, and the Other Frameworks category has 32 views and 16 likes.
 * Undertake the `part two of official Django tutorial <https://docs.djangoproject.com/en/1.7/intro/tutorial02/>`_ if you have not done so. This will help to reinforce further what you have learnt here, and to learn more about customising the admin interface.
 * Customise the Admin Interface - so that when you view the Page model it displays in a list the category, the name of the page and the url.
 
@@ -389,6 +390,8 @@ Hints
 .....
 If you require some help or inspiration to get these exercises done, these hints will hopefully help you out.
 
+* Modify the ``Category`` model by adding in the fields, ``view`` and ``likes`` as ``IntegerField``s.
+* Modify the ``add_cat`` function in the ``populate.py`` script, to take the ``views`` and ``likes``. Once you get the Category c, then you can update the number of views with ``c.views``, and similarly with likes.
 * To customise the admin interface, you will need to edit ``rango/admin.py`` and create a ``PageAdmin`` class that inherits from ``admin.ModelAdmin``. 
 * Within your new ``PageAdmin`` class, add ``list_display = ('title', 'category', 'url')``.
 * Finally, register the ``PageAdmin`` class with Django's admin interface. You should modify the line ``admin.site.register(Page)``. Change it to ``admin.site.register(Page, PageAdmin)`` in Rango's ``admin.py`` file.

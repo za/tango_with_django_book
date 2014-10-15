@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-How To Tango With Django
+How To Tango With Django 1.7
 ====================================================
 
 .. toctree::
@@ -16,7 +16,7 @@ How To Tango With Django
    chapters/templates_static
    chapters/models
    chapters/models_templates
-   chapters/forms
+..   chapters/forms
    chapters/login
    chapters/templates
    chapters/cookie

@@ -119,7 +119,7 @@ html_theme_options = {
 
 # The name for this set of Sphinx documents.  If None, it defaults to
 # "<project> v<release> documentation".
-html_title = 'How to Tango with Django'
+html_title = 'How to Tango with Django 1.5.4'
 
 # A shorter title for the navigation bar.  Default is the same as html_title.
 #html_short_title = ''
@@ -199,7 +199,7 @@ latex_elements = {
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-  ('index', 'How_To_Tango_With_Django.tex', u'How to Tango with Django',
+  ('index', 'How_To_Tango_With_Django.tex', u'How to Tango with Django 1.5.4',
    u'Leif Azzopardi and David Maxwell', 'manual'),
 ]
 
@@ -229,7 +229,7 @@ latex_logo = 'images/twd200x200.jpg'
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'how to tango with django', u'How To Tango With Django',
+    ('index', 'how to tango with django 1.5.4', u'How To Tango With Django 1.5.4',
      [u'Leif Azzopardi and David Maxwell'], 1)
 ]
 
@@ -243,8 +243,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('index', 'How To Tango With Django', u'How To Tango With Django',
-   u'Leif Azzopardi and David Maxwell', 'How To Tango With Django', 'A starters Guide to Web Development in Django 1.5',
+  ('index', 'How To Tango With Django 1.5.4', u'How To Tango With Django 1.5.4',
+   u'Leif Azzopardi and David Maxwell', 'How To Tango With Django 1.5.4', 'A starters Guide to Web Development in Django 1.5.4',
    'Miscellaneous'),
 ]
 
@@ -261,7 +261,7 @@ texinfo_documents = [
 # -- Options for Epub output ---------------------------------------------------
 
 # Bibliographic Dublin Core info.
-epub_title = u'How To Tango With Django'
+epub_title = u'How To Tango With Django 1.5.4'
 epub_author = u'Leif Azzopardi and David Maxwell'
 epub_publisher = u'Leif Azzopardi and David Maxwell'
 epub_copyright = u'2013, Leif Azzopardi and David Maxwell'
