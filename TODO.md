@@ -1,8 +1,37 @@
+Upgrade to 1.7.1
+----------------
+
+- chapter overview DONE
+- chapter requirements DONE
+- chapter setup  DONE: some TODOs, on migrate command
+- chapter templates_static DONE: some TODOs
+- chapter models - UP TO population script
+- chapter models_templates
+- chapter forms
+- chapter login
+- chapter templates
+- chapter cookie
+- chapter bootstrap
+- chapter bing_search
+- chapter tango
+- chapter tango_too
+- chapter ajax
+- chapter deploy
+- chapter summary
+- chapter git
+- chapter css_intro
+- chapter javascript
+- chapter test
+- chapter acknowledgements
+
+
+
 General Comments
 ----------------
 - @Siecje thinks we should start using render() rather than render_to_response() at some point.
 	- He feels it is important to discuss that there's a shorthand way of getting a response to the client.
 	- But I (David) argue it could be confusing - and anyway, render_to_response() drills the concept of context dictionaries into a reader's head.
+	http://rayed.com/wordpress/?p=1445
 	- Hmm... I can add a note at some point to discuss this briefly!
 
 EBook and Cover Design
