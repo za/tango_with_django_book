@@ -17,17 +17,17 @@ How To Tango With Django 1.7
    chapters/models
    chapters/models_templates
    chapters/forms
-   
+   chapters/login
+   chapters/templates
    
    chapters/git
    chapters/css_intro
    chapters/javascript
    chapters/test
    
-   
-..   chapters/login
-   chapters/templates
-   chapters/cookie
+
+..   
+      chapters/cookie
    chapters/bootstrap
    chapters/bing_search
    chapters/tango
