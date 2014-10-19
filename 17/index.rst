@@ -28,7 +28,6 @@ How To Tango With Django 1.7
    
 
 ..   
-      
    chapters/bootstrap
    chapters/bing_search
    chapters/tango
