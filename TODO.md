@@ -5,11 +5,11 @@ Upgrade to 1.7.1
 - chapter requirements DONE
 - chapter setup  DONE: some TODOs, on migrate command
 - chapter templates_static DONE: some TODOs
-- chapter models - UP TO population script
-- chapter models_templates
-- chapter forms
-- chapter login
-- chapter templates
+- chapter models - DONE: some TODOs
+- chapter models_templates DONE: some TODOs
+- chapter forms DONE: some TODOs
+- chapter login DONE: some TODOs. Really want to add in another chapter on using the django-registration-redux package
+- chapter templates DONE: some TODOs
 - chapter cookie
 - chapter bootstrap
 - chapter bing_search
@@ -62,7 +62,7 @@ Chapter 5
 ---------
 
 - by @ramdog and @jonathan-s - should we look at an additional chapter at the end (or section) detailing how to setup up Postgres instead of SQLite? It shouldn't take very long...
-- by @jonathan-s - look at South for database handling? Or is this out of scope?
+- by @jonathan-s - look at South for database handling? Or is this out of scope? Django 1.7 takes care of this. DONE
 
 Chapter 7
 ---------

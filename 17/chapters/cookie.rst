@@ -24,7 +24,7 @@ The passing of information in the form of cookies can open up potential security
 
 	A screenshot of the BBC News website (hosted in the United Kingdom) with the cookie warning message presented at the top of the page.
 
-.. note:: Because of the potentially sensitive nature of cookies, lawmakers have taken a particularly keen interest in them. In particular, European Union (EU) lawmakers in 2011 introduced an EU-wide 'cookie law', where all hosted sites within the EU should present a cookie warning message when a user visits the site for the first time. Check out Figure :num:`fig-bbcnews-cookies`, demonstrating such a warning on the BBC News website. You can read about `the law here <http://www.ico.org.uk/for_organisations/privacy_and_electronic_communications/the_guide/cookies>`_.
+.. note:: Note in 2011, the European Union (EU) introduced an EU-wide 'cookie law', where all hosted sites within the EU should present a cookie warning message when a user visits the site for the first time. Check out Figure :num:`fig-bbcnews-cookies`, demonstrating such a warning on the BBC News website. You can read about `the law here <http://www.ico.org.uk/for_organisations/privacy_and_electronic_communications/the_guide/cookies>`_. 
 
 
 .. _model-cookies-protocols-label:
@@ -52,13 +52,13 @@ Session IDs don't have to be stored with cookies, either. Legacy PHP application
 
 Setting up Sessions in Django
 -----------------------------
-Although this should already be setup and working correctly, it's nevertheless good practice to learn which Django modules provide which functionality. In the case of sessions, Django provides `middleware <https://docs.djangoproject.com/en/1.5/topics/http/middleware/>`_ that implements session functionality.
+Although this should already be setup and working correctly, it's nevertheless good practice to learn which Django modules provide which functionality. In the case of sessions, Django provides `middleware <https://docs.djangoproject.com/en/1.7/topics/http/middleware/>`_ that implements session functionality.
 
 To check that everything is in order, open your Django project's ``settings.py`` file. Within the file, locate the ``MIDDLEWARE_CLASSES`` tuple. You should find the ``django.contrib.sessions.middleware.SessionMiddleware`` module listed as a string in the tuple - if you don't, add it to the tuple now. It is the ``SessionMiddleware`` middleware which enables the creation of unique ``sessionid`` cookies.
 
-The ``SessionMiddleware`` is designed to work flexibly with different ways to store session information. There are many approaches that can be taken - you could store everything in a file, in a database, or even in a cache. The most straightforward approach is to use the ``django.contrib.sessions`` application to store session information in a Django model/database (specifically, the model ``django.contrib.sessions.models.Session``). To use this approach, you'll also need to make sure that ``django.contrib.sessions`` is in the ``INSTALLED_APPS`` tuple of your Django project's ``settings.py`` file. If you add the application now, you'll need to synchronise your database using the ``python manage.py syncdb`` command to add the new tables to your database.
+The ``SessionMiddleware`` is designed to work flexibly with different ways to store session information. There are many approaches that can be taken - you could store everything in a file, in a database, or even in a cache. The most straightforward approach is to use the ``django.contrib.sessions`` application to store session information in a Django model/database (specifically, the model ``django.contrib.sessions.models.Session``). To use this approach, you'll also need to make sure that ``django.contrib.sessions`` is in the ``INSTALLED_APPS`` tuple of your Django project's ``settings.py`` file. If you add the application now, you'll need to update your database with the migration commands.
 
-.. note:: If you are looking for lightning fast performance, you may want to consider a cached approach for storing session information. You can check out the `official Django documentation for advice on cached sessions <https://docs.djangoproject.com/en/1.5/topics/http/sessions/#using-cached-sessions>`_.
+.. note:: If you are looking for lightning fast performance, you may want to consider a cached approach for storing session information. You can check out the `official Django documentation for advice on cached sessions <https://docs.djangoproject.com/en/1.7/topics/http/sessions/#using-cached-sessions>`_.
 
 A Cookie Tasting Session
 ------------------------
@@ -106,26 +106,18 @@ The sensible place to assume a user enters the Rango site is at the index page. 
 .. code-block:: python
 	
 	def index(request):
-	    context = RequestContext(request)
-	
+	   
 	    category_list = Category.objects.all()
-	    context_dict = {'categories': category_list}
-	
-	    for category in category_list:
-	        category.url = encode_url(category.name)
-	
 	    page_list = Page.objects.order_by('-views')[:5]
-	    context_dict['pages'] = page_list
-	
-	    #### NEW CODE ####
-	    # Obtain our Response object early so we can add cookie information.
-	    response = render_to_response('rango/index.html', context_dict, context)
-	
+    	context_dict = {'categories': category_list, 'pages': page_list}
+
 	    # Get the number of visits to the site.
 	    # We use the COOKIES.get() function to obtain the visits cookie.
 	    # If the cookie exists, the value returned is casted to an integer.
 	    # If the cookie doesn't exist, we default to zero and cast that.
 	    visits = int(request.COOKIES.get('visits', '0'))
+		
+		reset_last_visit_time = False
 	
 	    # Does the cookie last_visit exist?
 	    if 'last_visit' in request.COOKIES:
@@ -136,17 +128,25 @@ The sensible place to assume a user enters the Rango site is at the index page. 
 	
 	        # If it's been more than a day since the last visit...
 	        if (datetime.now() - last_visit_time).days > 0:
-	            # ...reassign the value of the cookie to +1 of what it was before...
-	            response.set_cookie('visits', visits+1)
-	            # ...and update the last visit cookie, too.
-	            response.set_cookie('last_visit', datetime.now())
+	            visits = visits + 1
+	            # ...and flag that the cookie last visit needs to be updated
+				reset_last_visit_time = True
 	    else:
-	        # Cookie last_visit doesn't exist, so create it to the current date/time.
-	        response.set_cookie('last_visit', datetime.now())
+	        # Cookie last_visit doesn't exist, so flag that it should be set.
+	        reset_last_visit_time = True
+	
+	
+		context_dict['visits'] = visits
+		
+	    # Obtain our Response object early so we can add cookie information.
+		response = render(request, 'rango/index.html', context_dict)
+		if reset_last_visit_time:
+			response.set_cookie('last_visit', datetime.now())
+		response.set_cookie('visits', visits)
 	
 	    # Return response back to the user, updating any cookies that need changed.
 	    return response
-	    #### END NEW CODE ####
+	    
 
 For reading through the code, you will see that a majority of the code deals with checking the current date and time. For this, you'll need to include Python's ``datetime`` module by adding the following import statement at the top of the ``views.py`` file.
 
@@ -154,7 +154,7 @@ For reading through the code, you will see that a majority of the code deals wit
 	
 	from datetime import datetime
 
-There's a ``datetime`` object within the ``datetime`` module, that's not a typo. Make sure you import the module correctly, otherwise you'll get frustrating import errors.
+Make sure you also import the ``datetime`` object within the ``datetime`` module.
 
 In the added code we check to see if the cookie ``last_visit`` exists. If it does, we can take the value from the cookie using the syntax ``request.COOKIES['cookie_name']``, where ``request`` is the name of the ``request`` object, and ``'cookie_name'`` is the name of the cookie you wish to retrieve. **Note that all cookie values are returned as strings**; *do not assume that a cookie storing whole numbers will return an integer.* You have to manually cast this to the correct type yourself. If a cookie does not exist, you can create a cookie with the ``set_cookie()`` method of the ``response`` object you create. The method takes in two values, the name of the cookie you wish to create (as a string), and the value of the cookie. In this case, it doesn't matter what type you pass as the value - it will be automatically cast to a string.
 
@@ -178,6 +178,8 @@ Now if you visit the Rango homepage, and inspect the developer tools provided by
 	This means you need only wait five seconds to see your ``visits`` cookie increment, rather than a whole day. When you're happy your code works, you can revert the comparison back to the original per-day timespan.
 	
 	Being able to find the difference between times using the ``-`` operator is one of the many awesome features that Python provides. When times are subtracted, a ``timedelta`` object is returned, which provides the ``days`` and ``seconds`` attributes we use in the code snippets above. You can check out the `official Python documentation <http://docs.python.org/2/library/datetime.html#timedelta-objects>`_ for more information on this type of object, and what other attributes it provides.
+	
+Instead of using the developer tools you can update the ``index.html`` and add, ``<p> visits: {{ visits }}</p>`` to show the number of visits.
 
 Session Data
 ------------
@@ -186,41 +188,49 @@ In the previous example, we used client side cookies. However, a more secure way
 To use session based cookies you need to perform the following steps.
 
 #. Make sure that ``MIDDLEWARE_CLASSES`` in ``settings.py`` contains ``django.contrib.sessions.middleware.SessionMiddleware``. 
-#. Configure your session backend. By default a database backend is assumed - so you will have make sure that  your database is set up and synchronised. See the `official Django Documentation on Sessions for other backend configurations <https://docs.djangoproject.com/en/1.5/topics/http/sessions/>`_.
+#. Configure your session backend. Make sure that ``django.contrib.sessions`` is in your ``INSTALLED_APPS`` in ``settings.py``. If not, add it, and run the database migration command, ``python manage.py migrate``.
+#. By default a database backend is assumed, but you might want to another setup (i.e. a cache). See the `official Django Documentation on Sessions for other backend configurations <https://docs.djangoproject.com/en/1.7/topics/http/sessions/>`_.
 
-Now if you want to check if the cookie has been stored you can do so by accessing the ``request.session`` object, where ``request`` is the name of your view's required parameter. Check out the modified ``index()`` function below to see how to do this.
+Now instead of storing the cookies directly in the request (and thus on the client's machine), you can access the server side cookies via the method call ``request.session.get()`` and store them with ``request.session[]``. Note that a session ID cookie is still used to remember the client's machine (so technically a browser side cookie exists), however all the data is stored serve side. Below we have updated the ``index()`` function with the session based cookies:
+
 
 .. code-block:: python
 	
 	def index(request):
-	    context = RequestContext(request)
-	
-	    category_list = Category.objects.all()
-	    context_dict = {'categories': category_list}
-	
-	    for category in category_list:
-	        category.url = encode_url(category.name)
-
+	    
+	    category_list = Category.objects.order_by('-likes')[:5]
 	    page_list = Page.objects.order_by('-views')[:5]
-	    context_dict['pages'] = page_list
-	
-	    #### NEW CODE ####
-	    if request.session.get('last_visit'):
-	        # The session has a value for the last visit
-	        last_visit_time = request.session.get('last_visit')
-	        visits = request.session.get('visits', 0)
-	        
-	        if (datetime.now() - datetime.strptime(last_visit_time[:-7], "%Y-%m-%d %H:%M:%S")).days > 0:
-	            request.session['visits'] = visits + 1
-	            request.session['last_visit'] = str(datetime.now())
+
+	    context_dict = {'categories': category_list, 'pages': page_list}
+
+	    visits = request.session.get('visits)
+		if not visits:
+			visits = 0
+	    reset_last_visit_time = False
+
+	    last_visit = request.session.get('last_visit')
+	    if last_visit:
+		    last_visit_time = datetime.strptime(last_visit[:-7], "%Y-%m-%d %H:%M:%S")
+	        if (datetime.now() - last_visit_time).seconds > 0:
+	            # ...reassign the value of the cookie to +1 of what it was before...
+	            visits = visits + 1
+	            # ...and update the last visit cookie, too.
+	            reset_last_visit_time = True
 	    else:
-	        # The get returns None, and the session does not have a value for the last visit.
-	        request.session['last_visit'] = str(datetime.now())
-	        request.session['visits'] = 1
-	    #### END NEW CODE ####
+	        # Cookie last_visit doesn't exist, so create it to the current date/time.
+	        reset_last_visit_time = True
+
+	    context_dict['visits'] = visits
+		request.session['visits'] = visits
+		if reset_last_visit_time:
+			request.session['last_visit'] = str(datetime.now())
+		
+		
+	    response = render(request,'rango/index.html', context_dict)
+
+	    return response
 	
-	    # Render and return the rendered response back to the user.
-	    return render_to_response('rango/index.html', context_dict, context)
+
 
 .. warning:: It's highly recommended that you delete any client-side cookies for Rango *before* you start using session-based data. You can do this in your browser's developer tools by deleting each cookie individually, or simply clear your browser's cache entirely - ensuring that cookies are deleted in the process.
 
@@ -237,7 +247,13 @@ By default, browser-length sessions are disabled. You can enable them by modifyi
 
 Alternatively, persistent sessions are enabled by default, with ``SESSION_EXPIRE_AT_BROWSER_CLOSE`` either set to ``False``, or not being present in your project's ``settings.py`` file. Persistent sessions have an additional setting, ``SESSION_COOKIE_AGE``, which allows you to specify the age of which a cookie can live to. This value should be an integer, representing the number of seconds the cookie can live for. For example, specifying a value of ``1209600`` will mean your website's cookies expire after a two week period.
 
-Check out the available settings you can use on the `official Django documentation on cookies <https://docs.djangoproject.com/en/1.5/ref/settings/#session-cookie-age>`_ for more details. You can also check out `Eli Bendersky's blog <http://eli.thegreenplace.net/2011/06/24/django-sessions-part-i-cookies/>`_ for an excellent tutorial on cookies and Django.
+Check out the available settings you can use on the `official Django documentation on cookies <https://docs.djangoproject.com/en/1.7/ref/settings/#session-cookie-age>`_ for more details. You can also check out `Eli Bendersky's blog <http://eli.thegreenplace.net/2011/06/24/django-sessions-part-i-cookies/>`_ for an excellent tutorial on cookies and Django.
+
+
+Clearing the Sessions Database
+------------------------------
+Session cookies accumulate. So if you are using the database backend you will have to periodically clear the database that stores the cookies. This can be done using ``python manage.py clearsessions``. The Django documentations suggests running this daily as a cron job. See https://docs.djangoproject.com/en/1.7/topics/http/sessions/#clearing-the-session-store
+
 
 Basic Considerations and Workflow
 ---------------------------------
@@ -256,7 +272,7 @@ If client-side cookies are the right approach for you then work through the foll
 If you need more secure cookies, then use session based cookies:
 
 #. Make sure that ``MIDDLEWARE_CLASSES`` in ``settings.py`` contains 'django.contrib.sessions.middleware.SessionMiddleware'. 
-#. Configure your session backend ``SESSION_ENGINE``. See the `official Django Documentation on Sessions <https://docs.djangoproject.com/en/dev/topics/http/sessions/>`_ for the various backend configurations.
+#. Configure your session backend ``SESSION_ENGINE``. See the `official Django Documentation on Sessions <https://docs.djangoproject.com/en/1.7/topics/http/sessions/>`_ for the various backend configurations.
 #. Check to see if the cookie exists via ``requests.sessions.get()``
 #. Update or set the cookie via the session dictionary, ``requests.session['<cookie_name>']``
 
@@ -283,7 +299,7 @@ You'll have to pass the value from the cookie to the template context for it to 
 	    count = 0
 
 	# remember to include the visit data
-	return render_to_response('rango/about.html', {'visits': count}, context)
+	return render(request, 'rango/about.html', {'visits': count})
 
 .. rubric:: Footnotes
 

@@ -19,6 +19,7 @@ How To Tango With Django 1.7
    chapters/forms
    chapters/login
    chapters/templates
+   chapters/cookie
    
    chapters/git
    chapters/css_intro
@@ -27,7 +28,7 @@ How To Tango With Django 1.7
    
 
 ..   
-      chapters/cookie
+      
    chapters/bootstrap
    chapters/bing_search
    chapters/tango
