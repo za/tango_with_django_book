@@ -17,6 +17,14 @@ How To Tango With Django 1.7
    chapters/models
    chapters/models_templates
    chapters/forms
+   
+   
+   chapters/git
+   chapters/css_intro
+   chapters/javascript
+   chapters/test
+   
+   
 ..   chapters/login
    chapters/templates
    chapters/cookie
@@ -27,11 +35,9 @@ How To Tango With Django 1.7
    chapters/ajax
    chapters/deploy
    chapters/summary
+ 
    
-   chapters/git
-   chapters/css_intro
-   chapters/javascript
-   chapters/test
+
    
 ..   chapters/acknowledgements
 
