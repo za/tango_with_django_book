@@ -28,7 +28,7 @@ Given the templates that we have created so far it should be pretty obvious that
 	    </body>
 	</html>
 
-Let's make this our base template, for the time being, and save it as ``base.html`` in Rango's ``templates`` directory (e.g. ``templates/rango/base.html``). 
+Let's make this our base template, for the time being, and save it as ``base.html`` in the ``templates`` directory (e.g. ``templates/base.html``). 
 
 .. note:: You should always aim to extract as much reoccurring content for your base templates. While it may be a bit more of a challenge for you to do initially, the time you will save in maintenance of your templates in the future far outweighs the initial overhead. Think about it: would you rather maintain one copy of your markup or multiple copies?
 
@@ -110,6 +110,7 @@ We have introduced two new features into the template.
 
 Also note that we enclose the ``body_block`` within a HTML ``<div>`` tag - we'll be explaining the meaning of the ``<div>`` tag in Chapter :ref:`css-course-label`. Our links are also converted to an unordered HTML list through use of the ``<ul>`` and ``<li>`` tags.
 
+
 Template Inheritance
 --------------------
 Now that we've created a base template with a block, we can now update the templates we have created to inherit from the base template. For example, let's refactor the template ``rango/category.html``.
@@ -118,7 +119,7 @@ To do this, first remove all the repeated HTML code leaving only the HTML and Te
 
 .. code-block:: html
 	
-	{% extends 'rango/base.html' %}
+	{% extends 'base.html' %}
 
 The ``extends`` command takes one parameter, the template which is to be extended/inherited from (i.e. ``rango/base.html``). We can then modify the ``category.html`` template so it looks like the following complete example.
 
@@ -126,7 +127,7 @@ The ``extends`` command takes one parameter, the template which is to be extende
 
 .. code-block:: html
 	
-	{% extends 'rango/base.html' %}
+	{% extends 'base.html' %}
 	
 	{% load staticfiles %}
 	
@@ -222,7 +223,7 @@ Exercises
 ---------
 Now that you've worked through this chapter, we've got several exercises for you to work through. After completing them, you'll be a Django templating pro.
 
-* Update all other existing templates within Rango's repertoire to extend from the ``rango/base.html`` template. Follow the same process as we demonstrated above. Once completed, your templates should all inherit from ``base.html``, as demonstrated in Figure :num:`fig-rango-template-inheritance`. While you're at it, make sure you remove the links from our ``index.html`` template. We don't need them anymore! You can also remove the link to Rango's homepage within the ``about.html`` template.
+* Update all other existing templates within Rango's repertoire to extend from the ``base.html`` template. Follow the same process as we demonstrated above. Once completed, your templates should all inherit from ``base.html``, as demonstrated in Figure :num:`fig-rango-template-inheritance`. While you're at it, make sure you remove the links from our ``index.html`` template. We don't need them anymore! You can also remove the link to Rango's homepage within the ``about.html`` template.
 * Convert the restricted page to use a template. Call the template ``restricted.html``, and ensure that it too extends from our ``base.html`` template.
 * Change all the references to rango urls to use the url template tag.
 * Add another link to our growing link collection that allows users to navigate back to Rango's homepage from anywhere on the website.
@@ -256,4 +257,4 @@ Now that you've worked through this chapter, we've got several exercises for you
 		    
 		    return render(request, 'rango/about.html', {})
 	
-	Remember, the last parameter of ``render_to_response()`` is a dictionary with which you can use to pass additional data to the Django template engine. As we have no additional data to pass through we pass through an empty dictionary. Have a look at Section :ref:`adding-a-template-label` to refresh your memory on ``render()``.
+	Remember, the last parameter of ``render()`` is a dictionary with which you can use to pass additional data to the Django template engine. As we have no additional data to pass through we pass through an empty dictionary. Have a look at Section :ref:`adding-a-template-label` to refresh your memory on ``render()``.
