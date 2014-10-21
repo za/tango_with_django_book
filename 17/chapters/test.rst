@@ -16,7 +16,7 @@ Running Tests
 
 In built in Django is machinery to test the applications built. You can do this by issuing the following command:
 
-..
+.. code-block:: guess
 
 	$ python manage.py test rango
 	
@@ -66,7 +66,7 @@ The first thing you should notice, if you have not written tests before, is that
 Now lets run test:
 
 
-..
+.. code-block::  guess
 
 	$ python manage.py test rango
 	
@@ -131,7 +131,7 @@ Coverage Testing
 ----------------
 Code coverage measures how much of your code base has been tested, and how much of your code has been put through its paces via tests. You can install a package called ``coverage`` via with ``pip install coverage`` which automatically analyses how much code coverage you have. Once you have ``coverage`` installed, run the following command:
 
-..
+.. code-block:: guess
 
 	$ coverage run --source='.' manage.py test rango
 	
@@ -139,7 +139,7 @@ Code coverage measures how much of your code base has been tested, and how much 
 This will run through all the tests and collect the coverage data for the rango application. To see the coverage report you need to then type:
 
 
-..
+.. code-block:: guess
 
 	$ coverage report
 	
