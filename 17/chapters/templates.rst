@@ -258,3 +258,7 @@ Now that you've worked through this chapter, we've got several exercises for you
 		    return render(request, 'rango/about.html', {})
 	
 	Remember, the last parameter of ``render()`` is a dictionary with which you can use to pass additional data to the Django template engine. As we have no additional data to pass through we pass through an empty dictionary. Have a look at Section :ref:`adding-a-template-label` to refresh your memory on ``render()``.
+	
+	
+	
+	
