@@ -6,10 +6,12 @@
 How To Tango With Django 1.7
 ====================================================
 
+
 .. toctree::
    :maxdepth: 3
    :numbered:
 
+   chapters/new17
    chapters/overview
    chapters/requirements
    chapters/setup
@@ -22,6 +24,7 @@ How To Tango With Django 1.7
    chapters/cookie
    chapters/login_redux
    chapters/bootstrap
+   chapters/bing_search
    
    chapters/git
    chapters/css_intro
@@ -29,7 +32,7 @@ How To Tango With Django 1.7
    chapters/test
    
 
-.. chapters/bing_search
+.. 
    chapters/tango
    chapters/tango_too
    chapters/ajax
