@@ -25,6 +25,8 @@ In this version of the online tutorial / book, we have updated and added a numbe
 * The Bootstrap chapter has been updated to use Bootstrap 3.2.0
 
 	* Also, includes some notes on how to use Django-Bootstrap-Toolkit
+	
+* A new chapter has been added on using template tags
 
 * The chapter on testing has been expanded - but is still a work in progress
 
