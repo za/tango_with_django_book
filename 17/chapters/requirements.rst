@@ -283,7 +283,7 @@ If you are using a UNIX-based operating system and receive complaints about insu
 	
 	$ sudo pip install -U django==1.7
 
-The package manager will download Django and install it in the correct location for you. Upon completion, Django should be successfully installed. Note, if you didn't include the ``==1.5.4``, then a different version of Django may be installed.
+The package manager will download Django and install it in the correct location for you. Upon completion, Django should be successfully installed. Note, if you didn't include the ``==1.7``, then a different version of Django may be installed.
 
 Installing the Python Imaging Library
 *************************************
