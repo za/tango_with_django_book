@@ -13,7 +13,7 @@ AJAX essentially is a combination of technologies that are integrated together t
 
 To simplify the AJAX components you can use a library like JQuery. If you are using the Twitter CSS Bootstrap toolkit then JQuery will already be added in. Otherwise, download the latest version of JQuery and include it within your application.
 
-To include JQuery within your application, in the static folder create a *js* folder and plonk the JQuery javascript file (``jquery.js``) here along with an file called ``rango-ajax.js``, which will house our javascript code. In ``rango-ajax.js``, add the following javascript:
+To include JQuery within your application, in the static folder create a *js* folder and plonk the JQuery javascript file (``jquery.js``) here along with an file called ``rango-ajax.js``, which will house our javascript code. In ``rango_ajax.js``, add the following javascript:
 
 .. code-block:: javascript
 
@@ -24,6 +24,11 @@ To include JQuery within your application, in the static folder create a *js* fo
 	});
 
 
+This piece of JQuery, first selects the document object (with ``$(document)), and then makes a call to ``ready()``. Once the document is ready i.e. the complete page is loaded, then the anonymonous function denoted by ``function(){ }`` will be executed. JQuery requires you to think in a more ``functional`` programming style, than the typical Javascript which is often written in a more ``procedural`` programming style. For all the JQuery commands they follow a similar pattern: Select and Act. Select an element, and then act on the element. So it is good to keep this in mind. There are different selection operators, and various actions that can then be performed/applied.
+
+If you aren't familiar with JQuery it is worth checking out http://jquery.com and going through some examples in the documentation. The documentation provides numerous worked examples of the different functionality that the JQuery API provides.	
+
+
 Then in your *base* template include:
 
 .. code-block:: html
@@ -31,9 +36,16 @@ Then in your *base* template include:
 	<script src="{% static "/js/jquery.js" %}"></script>
 	<script src="{% static "/js/rango-ajax.js" %}"></script>
 
-If you aren't familiar with JQuery it is worth checking out http://jquery.com and going through some examples in the documentation. The documentation provides numerous worked examples of the different functionality that the JQuery API provides.	
+
+Here we assume you have downloaded a version of the jquert library, but you can also just directly refer to it:
+
+.. code-block:: html
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
 
+
+Now that the pre-reqs for using Jquery are in place we can use it to pimp the rango application.
 
 Add a "Like Button" 
 --------------------
@@ -49,7 +61,8 @@ To let users "like" certain categories undertake the following workflow:
 	- Add in a template tag to display the number of likes: ``{{% category.likes %}}``
 	- Place this inside a div with ``id="like_count"``, i.e. ``<div id="like_count">{{ category.likes }} </div>``
 	- This sets up the template to capture likes and to display likes for the category.
-* Update the ``category`` view to pass through the number of likes for the category.
+	- Note, since the ``category()`` view passes a reference to the category object, we can use that to access the number of likes, with ``{{ category.likes }}`` in the template
+
 * Create a view called, ``like_category`` which will examine the request and pick out the ``category_id`` and then increment the number of likes for that category.
 	- Don't forgot to add in the url mapping; i.e  map the ``like_category'' view to ``rango/like_category/``. The GET request will then be ``rango/like_category/?category_id=XXX``
 	- Instead of return a HTML page have this view will return the new total number of likes for that category.
@@ -68,37 +81,14 @@ To prepare the template we will need to add in the "Like" button with id="like" 
 	<b id="like_count">{{ category.likes }}</b> people like this category
 	
 	{% if user.is_authenticated %}
-		<button id ="likes" data-catid="{{category.id}}" class="btn btn-mini btn-primary" type="button">Like</button>
+		<button id ="likes" data-catid="{{category.id}}" class="btn btn-primary" type="button">
+		<span class="glyphicon glyphicon-thumbs-up"></span> 
+		Like
+		</button>
 	{% endif %}
 	
 	</p>
 
-
-Update the Category View
-........................
-To display the number of likes and the "Likes" button modify the ``category`` view:
-	
-.. code-block:: python
-	
-	def category(request, category_name_url):
-	    context = RequestContext(request)
-		cat_list = get_category_list()
-		category_name = decode_url(category_name_url)
-		
-		context_dict = {'cat_list': cat_list, 'category_name': category_name}
-		
-		try:
-			category = Category.objects.get(name=category_name)
-			
-			# Add category to the context so that we can access the id and likes
-			context_dict['category'] = category
-
-			pages = Page.objects.filter(category=category)
-			context_dict['pages'] = pages
-		except Category.DoesNotExist:
-			pass
-		
-		return render_to_response('rango/category.html', context_dict, context)
 
 Create a Like Category View
 ...........................
@@ -113,15 +103,15 @@ Create a view called, ``like_category`` in ``rango/views.py`` which will examine
 	    context = RequestContext(request)
 	    cat_id = None
 	    if request.method == 'GET':
-	        cat_id = request.GET['category_id']
+	        cat_id = request.GET['cat_id']
 
 	    likes = 0
 	    if cat_id:
-	        category = Category.objects.get(id=int(cat_id))
-	        if category:
-				likes = category.likes + 1
-	            category.likes =  likes 
-	            category.save()
+	        cat = Cat.objects.get(id=int(cat_id))
+	        if cat:
+				likes = cat.likes + 1
+	            cat.likes =  likes 
+	            cat.save()
 		
 	    return HttpResponse(likes)
 
@@ -152,6 +142,10 @@ Now in "rango-ajax.js" you will need to add some JQuery code to perform an AJAX 
 This piece of JQuery/Javascript will add an event handler to the element with id ``#likes``, i.e. the button. When clicked, it will extract the category id from the button element, and then make an AJAX GET request which will make a call to ``/rango/like_category/`` encoding the ``category id`` in the request. If the request is successful, then the HTML element with id like_count (i.e. the <strong> ) is updated with the data returned by the request, and the HTML element with id likes (i.e. the <button>) is hidden.
 
 There is a lot going on here and getting the mechanics right when constructing pages with AJAX can be a bit tricky. Essentially here, when the button is clicked an AJAX request is made, given our url mapping, this invokes the ``like_category`` view which updates the category and returns a new number of likes. When the AJAX request receives the response it updates parts of the page, i.e. the text and the button.
+
+
+#TODO(leifos): Explain in more detail the Jquery code.
+
 
 Adding Inline Category Suggestions
 ----------------------------------

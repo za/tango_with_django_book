@@ -5,6 +5,9 @@ Deploying Your Project
 
 This chapter provides a step-by-step guide on how to deploy your Django applications. We'll be looking at deploying applications on `PythonAnywhere <https://www.pythonanywhere.com/>`_, an online IDE and web hosting service. The service provides in-browser access to the server-based Python and Bash command line interfaces, meaning you can interact with PythonAnywhere's servers just like you would with a regular terminal instance on your own computer. Currently, PythonAnywhere are offering a free account which sets you up with an adequate amount of storage space and CPU time to get a Django application up and running. 
 
+
+.. note:: You can do this chapter independently (assuming you have some knowledge of git, if not refer to the chapter on using git).
+
 Creating a PythonAnywhere Account
 ---------------------------------
 First `sign up for a Beginner PythonAnywhere account <https://www.pythonanywhere.com/pricing/>`_.  If your application takes off and becomes popular, you can always upgrade your account at a later stage to gain more storage space and CPU time along with a number of other benefits (like hosting specific domains and ssh abilities).
@@ -56,15 +59,19 @@ Note the inclusion of ``(rango)`` compared to your previous command prompt. This
 	
 	/home/<username>/.virtualenvs/test/bin/pip
 
-Now we can customise our virtual environment by installing the required packages for our Rango application. Installing may take a considerable amount of time to install as your CPU time is limited - so have some patience. Issue the following two commands within your console:
+Now we can customise our virtual environment by installing the required packages for our Rango application. Installing may take a considerable amount of time to install as your CPU time is limited - so have some patience. Install all the required packages:
 
 ::
 	
-	$ pip install -U django==1.5.4
-	$ pip install pil
+	$ pip install -U django==1.7
+	$ pip install pillow
+	$ pip install django-registration-redux
+	$ pip install django-bootstrap-toolkit
 	
 
-After these have executed, check if Django has been installed with the command ``which django-admin.py``. You should receive output similar to the following example. We'll be using this virtual environment to work on the Rango application - whether we're synchronising the database or running population scripts. 
+Aternatively, you could use ``pip freeze > requirements.txt`` to save your current development environment, and then on PythonAnywhere, run ``pip install -r requirements.txt`` to install all the packages in a job lot.
+
+Once installed, check if Django has been installed with the command ``which django-admin.py``. You should receive output similar to the following example.  
 
 ::
 	
@@ -117,18 +124,22 @@ If you haven't put your code in a Git repository, you can clone the version we h
 
 ::
 	
-	16:54 ~ $ git clone https://github.com/leifos/tango_with_django.git
+	16:54 ~ $ git clone https://github.com/leifos/tango_with_django17.git
+	
+	
+#TODO(leifos): upload code to github
 
 .. note:: It doesn't matter if you clone your Git repository within your new virtual environment or not. You're only creating files within your disk quota, which doesn't require your special Python setup.
 
 Setting Up the Database
 .......................
-With your files cloned, you must then prepare your database. We'll be using the ``populate_rango.py`` module that we created earlier in the book. As we'll be running the module, you must ensure that you are using the ``rango`` virtual environment (workon rango). From your home directory, move into the ``tango_with_django`` directory, and issue the following commands
+With your files cloned, you must then prepare your database. We'll be using the ``populate_rango.py`` module that we created earlier in the book. As we'll be running the module, you must ensure that you are using the ``rango`` virtual environment (i.e. ``workon rango``). From your home directory, move into the ``tango_with_django`` directory, and issue the following commands
 
 ::
 	
 	
-	(rango) 16:55 ~/tango_with_django $ python manage.py syncdb
+	(rango) 16:55 ~/tango_with_django $ python manage.py makemigrations rango
+	(rango) 16:55 ~/tango_with_django $ python manage.py migrate
 	(rango) 16:56 ~/tango_with_django $ python populate_rango.py
 
 As discussed earlier in the book, the first command synchronises your database with your project's installed models, and the second populates the database with some sample data.
@@ -195,7 +206,7 @@ With these changes saved, reload your web application by clicking the *Reload* b
 
 Bing API Key
 ............
-Update ``bing_search.py`` with your own BING API Key to use the search functionality in Rango. Again, you will have to hit the *Reload* button for the changes to take effect.
+Update ``bing_search.py`` or ``keys.py`` with your own BING API Key to use the search functionality in Rango. Again, you will have to hit the *Reload* button for the changes to take effect.
 
 Turning off ``DEBUG`` Mode
 ..........................
@@ -211,7 +222,7 @@ Again, ensure ``<username>`` is changed to your PythonAnywhere username. Once co
 
 Log Files
 ---------
-Deploying your web application to another environment introduces another layer of complexity to your setup. Unfortunately, it most likely won't be all plain sailing and will possibly result in new errors or unsuspecting problems. In order for you to diagnose and rectify the issues you may encounter, PythonAnywhere provides you with three log files that can help provide vital clues.
+Deploying your web application to an online environment introduces another layer of complexity. It is likely that you will encounter new and bizzare errors due to unsuspecting problems. When facing such errors, vital clues may be found in one of the three log files that the web server on PythonAnywhere creates.
 
 Log files can be viewed via the PythonAnywhere web interface by clicking on the *Web* tab, or by viewing the files in ``/var/log/`` within a Bash console instance. The files provided are:
 
@@ -223,6 +234,10 @@ Note that the names for each log file are prepended with your subdomain. For exa
 
 When debugging, you may find it useful to delete or move the log files so that you don't have to scroll through a huge list of previous attempts. If the files are moved or deleted, they will be recreated automatically when a new request or error arises.
 
+
 Exercises
 ---------
-Congratulations, you've successfully deployed Rango! Why not tweet a link of your application to `@tangowithdjango <https://twitter.com/tangowithdjango>`_. We'd love to know you've succeeded!
+Congratulations, you've successfully deployed Rango! 
+
+* Tweet a link of your application to `@tangowithdjango <https://twitter.com/tangowithdjango>`_. 
+* Or email us to let us know, and tell us your thoughts on the book.

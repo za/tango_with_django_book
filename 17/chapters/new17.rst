@@ -5,7 +5,7 @@
 New in TwD 1.7
 ==============
 
-.. warning:: Please note that this version of the book is still in the draft phase. It should be usable. However, it has not been checked over, and many screen shots need to be updated. Change requests on the book can be made via GitHub: https://github.com/leifos/tango_with_django_book/tree/master/17
+.. warning:: Please note that this version of the book is still in the draft phase. Though it should all pretty much work (howeve,r some links and screenshots need to be updated). Please report any bugs, problems, etc, or submit change requests via GitHub: https://github.com/leifos/tango_with_django_book/tree/master/17 
 
 
 In this version of the online tutorial / book, we have updated and added a number of things:
@@ -31,6 +31,8 @@ In this version of the online tutorial / book, we have updated and added a numbe
 * The chapter on testing has been expanded - but is still a work in progress
 
 	* Includes how to use the package ``coverage`` to measure test coverage 
+	
+	
 
 	
 	
