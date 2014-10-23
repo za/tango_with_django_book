@@ -294,7 +294,7 @@ With your ``urls.py`` file updated, we now need to modify our project's ``settin
 .. code-block:: python
 	
 	MEDIA_URL = '/media/'
-	MEDIA_ROOT = os.path.join(PROJECT_PATH, 'media') # Absolute path to the media directory
+	MEDIA_ROOT = os.path.join(BASE_DIR, 'media') # Absolute path to the media directory
 
 The first variable ``MEDIA_URL`` defines the base URL from which all media files will be accessible on your development server. Setting the ``MEDIA_URL`` for example to ``/media/`` will mean that user uploaded files will be available from the URL ``http://127.0.0.1:8000/media/``. ``MEDIA_ROOT`` is used to tell Django where uploaded files should be stored on your local disk. In the example above, we set this variable to the result of joining our ``PROJECT_PATH`` variable defined in Section :ref:`model-setup-templates-label` with ``/media/``. This gives an absolute path of ``<workspace>/tango_with_django_project/media/``.
 
