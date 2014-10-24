@@ -126,7 +126,7 @@ Also, html tags can also be selected by referring to the tag in the selector:
 Here, we are selecting all the ``p`` html elements, and on hover we are associated two functions, one for on hover, and the other for hover off. You can see that we are using another selector called, ``this``, which selects the element in question, and then sets it color to red or blue, respectively.
 Note, the Jquery ``hover()`` function takes two functions (see ), the Jquery ``click()`` requires the event to passed through (see http://api.jquery.com/click/).
 
-Try adding the above code your ``rango-jquery.js`` file, make sure it is within the ``$(document).ready()`` function. What happens if you change the ``$(this)`` to ``$(a)``?
+Try adding the above code your ``rango-jquery.js`` file, make sure it is within the ``$(document).ready()`` function. What happens if you change the ``$(this)`` to ``$(p)``?
 
 Hover, is an example of a mouse move event, for descriptions on other such events, see: http://api.jquery.com/category/events/mouse-events/
 

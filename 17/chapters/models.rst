@@ -198,6 +198,8 @@ In the example, we first import the model that we want to manipulate. We then pr
 
 .. note:: The example we provide above is only a very basic taster on database related activities you can perform in the Django shell. If you have not done so already, it is good time to complete part one of the `official Django Tutorial to learn more about interacting with the models <https://docs.djangoproject.com/en/1.7/intro/tutorial01/>`_. Also check out the `official Django documentation on the list of available commands <https://docs.djangoproject.com/en/1.7/ref/django-admin/#available-commands>`_ for working with models.
 
+.. _admin-section:
+
 Configuring the Admin Interface
 -------------------------------
 One of the stand-out features of Django is that it provides a built in, web-based administrative interface that allows us to browse and edit data stored within our models and corresponding database tables. In the ``settings.py`` file, you will notice that one of the pre-installed apps is ``django.contrib.admin``, and in your project's ``urls.py`` there is a urlpattern that matches ``admin/``.

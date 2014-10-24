@@ -1,4 +1,5 @@
 .. _tango-label:
+.. _tango-chapter:
 
 Making Rango Tango! Exercises
 =============================
