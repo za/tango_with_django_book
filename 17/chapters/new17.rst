@@ -28,6 +28,8 @@ In this version of the online tutorial / book, we have updated and added a numbe
 	
 * A new chapter has been added on using template tags
 
+* Add a chapter on using JQuery with Django
+
 * The chapter on testing has been expanded - but is still a work in progress
 
 	* Includes how to use the package ``coverage`` to measure test coverage 

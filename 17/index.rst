@@ -28,15 +28,16 @@ How To Tango With Django 1.7
    chapters/bing_search
    chapters/tango
    chapters/tango_too
+   chapters/jquery	
+   chapters/ajax
+
    
    chapters/git
    chapters/css_intro
-   chapters/javascript
    chapters/test
    
 
 ..  
-   chapters/ajax
    chapters/deploy
    chapters/summary
  
