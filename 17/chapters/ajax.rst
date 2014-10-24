@@ -145,7 +145,7 @@ To do this you will need to do the following.
 	- Assume that a GET request is made and attempt to get the *query* attribute.
 	- If the query string is not empty, ask the Category model to get the top 8 categories that start with the query string.
 	- The list of category objects will then be combined into a piece of HTML via template. 
-* Instead of creating a template called ``suggestions.html`` re-use the ``category_list.html`` as it will be displaying data of the same type (i.e. categories).
+* Instead of creating a template called ``suggestions.html`` re-use the ``cats.html`` as it will be displaying data of the same type (i.e. categories).
 * To let the client ask for this data, you will need to create a URL mapping; lets call it *category_suggest*
 
 With the mapping, view, and template for this view in place, you will need to update the ``base.html`` template and add in some javascript so that the categories can be displayed as the user types.
@@ -173,15 +173,10 @@ In this helper function we use a filter to find all the categories that start wi
 		cat_list = []
 		if starts_with:
 			cat_list = Category.objects.filter(name__istartswith=starts_with)
-		else:
-			cat_list = Category.objects.all()
 		
 		if max_results > 0:
 			if len(cat_list) > max_results:
 				cat_list = cat_list[:max_results]
-		
-		for cat in cat_list:
-			cat.url = encode_url(cat.name)
 			
 		return cat_list
 
@@ -192,7 +187,7 @@ Using the ``get_category_list`` function we can now create a view that returns t
 .. code-block:: python
 	
 	def suggest_category(request):
-		context = RequestContext(request)
+		
 		cat_list = []
 		starts_with = ''
 		if request.method == 'GET':
@@ -200,9 +195,9 @@ Using the ``get_category_list`` function we can now create a view that returns t
 		
 		cat_list = get_category_list(8, starts_with)
 			
-		return render_to_response('rango/category_list.html', {'cat_list': cat_list }, context)
+		return render(request, 'rango/category_list.html', {'cat_list': cat_list })
 
-Note here we are re-using the ``rango/category_list.html`` template :-). 
+Note here we are re-using the ``rango/cats.html`` template :-). 
 
 Map View to URL
 ...............
@@ -226,11 +221,9 @@ In the base template in the sidebar div add in the following HTML code:
 			<li><input  class="search-query span10" type="text" name="suggestion" value="" id="suggestion" /></li>
 			</form>
 		</ul>
-	{% if cat_list %}
+	
 		<div id="cats">
-			{% include 'rango/category_list.html' with cat_list=cat_list %}
 		</div>	
-	{% endif %}
 
 Here we have added in an input box with ``id="suggestion"`` and div with ``id="cats"`` in which we will display the response. We don't need to add a button as we will be adding an event handler on keyup to the input box which will send the suggestion request.
 
