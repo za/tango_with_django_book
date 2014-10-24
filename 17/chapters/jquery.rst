@@ -68,6 +68,10 @@ Now lets do it using JQuery, bying first adding another button:
 .. code-block:: html
 
 	<button id="about-btn"> Click Me - I'm Javascript on Speed</button>
+	
+    <p>This is a example</p>
+
+    <p>This is another example</p>
 
 
 Notice that there is not javascript code associaed with the button currently. We will be doing that with the following code added to ``rango-jquery.js``:
@@ -109,15 +113,15 @@ Also, html tags can also be selected by referring to the tag in the selector:
 
 .. code-block:: javascript
 
-    $("a").hover( function() {
-		$(this).css('color:red');
+    $("p").hover( function() {
+		$(this).css('color', 'red');
 	}, 
 	function() {
-		$(this).css('color:blue');
+		$(this).css('color', 'blue');
 	});
 	
 
-Here, we are selecting all the ``a`` html elements, and on hover we are associated two functions, one for on hover, and the other for hover off. You can see that we are using another selector called, ``this``, which selects the element in question, and then sets it color to red or blue, respectively.
+Here, we are selecting all the ``p`` html elements, and on hover we are associated two functions, one for on hover, and the other for hover off. You can see that we are using another selector called, ``this``, which selects the element in question, and then sets it color to red or blue, respectively.
 Note, the Jquery ``hover()`` function takes two functions (see ), the Jquery ``click()`` requires the event to passed through (see http://api.jquery.com/click/).
 
 Try adding the above code your ``rango-jquery.js`` file, make sure it is within the ``$(document).ready()`` function. What happens if you change the ``$(this)`` to ``$(a)``?
@@ -153,7 +157,7 @@ Then add the following Jquery to ``rango-jquery.js``:
 		$("#about-btn").click( function(event) {
 	    	msgstr = $("#msg").html()
 			msgstr = msgstr + "o"
-			$(this).html(msgstr)
+			$("#msg").html(msgstr)
 		 });
 
 
