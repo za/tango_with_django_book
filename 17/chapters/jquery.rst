@@ -28,7 +28,7 @@ Here we assume you have downloaded a version of the jquert library, but you can 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	
 
-Make sure you have your static files set up (see Chapter ... #TODO(leifos): reference chapter setup)
+Make sure you have your static files set up (see Chapter :ref:`setup-label`)
 
 In the static folder create a *js* folder and plonk the JQuery javascript file (``jquery.js``) here along with an file called ``rango-ajax.js``, which will house our javascript code. In ``rango_ajax.js``, add the following javascript:
 
