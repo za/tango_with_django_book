@@ -20,17 +20,17 @@ In this version of the online tutorial / book, we have updated and added a numbe
 
 * A new chapter on authentication has been added
 
-	* Where the login and registration is done with Django-Registration-Redux 
+	* Where the login and registration is done with Django-Registration-Redux (see Chapter :ref:`login-redux-label`)
 
-* The Bootstrap chapter has been updated to use Bootstrap 3.2.0
+* The Bootstrap chapter has been updated to use Bootstrap 3.2.0 (see Chapter :ref:`bootstrap-chapter`)
 
 	* Also, includes some notes on how to use Django-Bootstrap-Toolkit
 	
-* A new chapter has been added on using template tags
+* A new chapter has been added on using template tags (see Chapter :ref:`template-tag-chapter` )
 
-* Add a chapter on using JQuery with Django
+* Add a chapter on using JQuery with Django (see Chapter :ref:`jquery`)
 
-* The chapter on testing has been expanded - but is still a work in progress
+* The chapter on testing has been expanded - but is still a work in progress (see Chapter :ref:`test-chapter`)
 
 	* Includes how to use the package ``coverage`` to measure test coverage 
 	

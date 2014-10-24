@@ -1,4 +1,4 @@
-.. _login-label:
+.. _login-redux-label:
 
 User Authentication with Django-Registration-Redux
 ==================================================

@@ -1,3 +1,5 @@
+.. _jquery:
+
 JQUERY and Django
 =================
 Jquery rocks! Jquery is a library written in Javascript that seriously pimps its power and utility. A few lines of JQuery often encapsulates hundreds of lines of javascript. Jquery provides a suite of functionality that is mainly focused on maniipulating HTML elements. In this chapter, we will describe:

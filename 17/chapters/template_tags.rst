@@ -1,3 +1,5 @@
+.. _template-tag-chapter:
+
 Template Tags
 =============
 
