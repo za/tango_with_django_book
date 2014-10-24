@@ -142,9 +142,9 @@ Admittedly, the *Rango* website is pretty plain as we have not included any styl
 
 Configuring the Static Media Directory
 ......................................
-To get static media up and running, you will need to set up a directory in which static media files are stored. In your project directory (e.g. ``<workspace>/tango_with_django_project/``), create a new directory called ``static``. 
+To get static media up and running, you will need to set up a directory in which static media files are stored. In your project directory (e.g. ``<workspace>/tango_with_django_project/``), create a new directory called ``static`` and a new directory called ``images`` inside ``static``
 
-Now place an image within the ``static`` directory. As shown in Figure :num:`fig-rango-picture`, we chose a picture of the chameleon, `Rango <http://www.imdb.com/title/tt1192628/>`_ - a fitting mascot, if ever there was one.
+Now place an image within the ``static/images`` directory. As shown in Figure :num:`fig-rango-picture`, we chose a picture of the chameleon, `Rango <http://www.imdb.com/title/tt1192628/>`_ - a fitting mascot, if ever there was one.
 
 .. _fig-rango-picture:
 
@@ -169,9 +169,9 @@ You've typed in some code, but what does it represent? The first variable ``STAT
 
 While ``STATIC_URL`` defines the URL to access media via the web server, ``STATICFILES_DIRS`` allows you to specify the location of the newly created ``static`` directory on your local disk. Just like the ``TEMPLATE_DIRS`` tuple, ``STATICFILES_DIRS`` requires an absolute path to the ``static`` directory. Here, we re-used the ``BASE_DIR`` defined in Section :ref:`model-setup-templates-label` to create the ``STATIC_PATH``.
 
-With those two settings updated, run your Django project's development server once more. If we want to view our image of Rango,  visit the URL ``http://127.0.0.1:8000/static/rango.jpg``. If it doesn't appear, you will want to check to see if everything has been correctly spelt and that you saved your ``settings.py`` file, and restart the development server. If it does appear, try putting in additional file types into the ``static`` directory and request them via your browser.
+With those two settings updated, run your Django project's development server once more. If we want to view our image of Rango,  visit the URL ``http://127.0.0.1:8000/static/images/rango.jpg``. If it doesn't appear, you will want to check to see if everything has been correctly spelt and that you saved your ``settings.py`` file, and restart the development server. If it does appear, try putting in additional file types into the ``static`` directory and request them via your browser.
 
-.. caution:: While using the Django development server to serve your static media files is fine for a development environment, it's highly unsuitable for a production - or *live* - environment. The `official Django documentation on Deployment <https://docs.djangoproject.com/en/1.5/howto/static-files/deployment/>`_ provides further information about deploying static files in a production environment.
+.. caution:: While using the Django development server to serve your static media files is fine for a development environment, it's highly unsuitable for a production - or *live* - environment. The `official Django documentation on Deployment <https://docs.djangoproject.com/en/1.7/howto/static-files/deployment/>`_ provides further information about deploying static files in a production environment.
 
 Static Media Files and Templates
 --------------------------------
@@ -294,7 +294,7 @@ With your ``urls.py`` file updated, we now need to modify our project's ``settin
 .. code-block:: python
 	
 	MEDIA_URL = '/media/'
-	MEDIA_ROOT = os.path.join(PROJECT_PATH, 'media') # Absolute path to the media directory
+	MEDIA_ROOT = os.path.join(BASE_DIR, 'media') # Absolute path to the media directory
 
 The first variable ``MEDIA_URL`` defines the base URL from which all media files will be accessible on your development server. Setting the ``MEDIA_URL`` for example to ``/media/`` will mean that user uploaded files will be available from the URL ``http://127.0.0.1:8000/media/``. ``MEDIA_ROOT`` is used to tell Django where uploaded files should be stored on your local disk. In the example above, we set this variable to the result of joining our ``PROJECT_PATH`` variable defined in Section :ref:`model-setup-templates-label` with ``/media/``. This gives an absolute path of ``<workspace>/tango_with_django_project/media/``.
 
