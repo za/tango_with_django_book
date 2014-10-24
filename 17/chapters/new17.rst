@@ -32,7 +32,7 @@ In this version of the online tutorial / book, we have updated and added a numbe
 
 * The chapter on testing has been expanded - but is still a work in progress (see Chapter :ref:`test-chapter`)
 
-	* Includes how to use the package ``coverage`` to measure test coverage 
+	* Includes how to use the package ``coverage`` to measure test coverage (see http://nedbatchelder.com/code/coverage/ )
 	
 	
 

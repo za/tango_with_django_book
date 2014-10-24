@@ -289,7 +289,6 @@ View code:
 	
 	@login_required
 	def auto_add_page(request):
-	    context = RequestContext(request)
 	    cat_id = None
 	    url = None
 	    title = None
@@ -307,6 +306,6 @@ View code:
 	            # Adds our results list to the template context under name pages.
 	            context_dict['pages'] = pages
 
-	    return render_to_response('rango/page_list.html', context_dict, context)
+	    return render(request, 'rango/page_list.html', context_dict)
 	
 
