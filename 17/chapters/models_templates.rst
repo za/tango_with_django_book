@@ -276,7 +276,7 @@ Now let's have a look at how we actually pass the value of the ``category_name_u
 	urlpatterns = patterns('',
 	    url(r'^$', views.index, name='index'),
 	    url(r'^about/$', views.about, name='about'),
-	    url(r'^category/(?P<category_name_slug>\[\w\-]+)/$', views.category, name='category'),)  # New!
+	    url(r'^category/(?P<category_name_slug>[\w\-]+)/$', views.category, name='category'),)  # New!
 
 As you can see, we have added in a rather complex entry that will invoke ``view.category()`` when the regular expression ``r'^(?P<category_name_slug>\w+)/$'`` is matched. We set up our regular expression to look for any sequence of alphanumeric characters (e.g. a-z, A-Z, or 0-9) and the hyphen(-) before the trailing URL slash. This value is then passed to the view ``views.category()`` as parameter ``category_name_slug``, the only argument after the mandatory ``request`` argument.
 
