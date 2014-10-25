@@ -30,17 +30,12 @@ How To Tango With Django 1.7
    chapters/tango_too
    chapters/jquery	
    chapters/ajax
-
+   chapters/test
+   chapters/deploy
+   chapters/summary
    
    chapters/git
    chapters/css_intro
-   chapters/test
-   
-
-..  
-   chapters/deploy
-   chapters/summary
- 
    
 
    

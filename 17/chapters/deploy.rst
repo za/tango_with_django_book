@@ -141,8 +141,10 @@ With your files cloned, you must then prepare your database. We'll be using the 
 	(rango) 16:55 ~/tango_with_django $ python manage.py makemigrations rango
 	(rango) 16:55 ~/tango_with_django $ python manage.py migrate
 	(rango) 16:56 ~/tango_with_django $ python populate_rango.py
+	(rango) 16:57 ~/tango_with_django $ python manage.py createsuperuser
+	
 
-As discussed earlier in the book, the first command synchronises your database with your project's installed models, and the second populates the database with some sample data.
+As discussed earlier in the book, the first command creates the migrations for the rango application, then the migrate command creates the SQLlite3 database. Once the database is created, the database can be populated and a superuser created.
 
 Setting up your Web Application
 -------------------------------
@@ -156,31 +158,37 @@ Configuring the WSGI Script
 ...........................
 The `Web Server Gateway Interface <http://en.wikipedia.org/wiki/Web_Server_Gateway_Interface>`_, a.k.a. WSGI provides a simple and universal interface between web servers and web applications. PythonAnywhere uses WSGI to bridge the server-application link and map incoming requests to your subdomain to your web application.
 
-To configure the WSGI script, navigate to the *Web* tab in PythonAnywhere's dashboard. From there, click the WSGI link located at the top of the page. The link should be preceded with text similar to ``It is configured via a WSGI file stored at:``. The good people at PythonAnywhere have set up a sample WSGI file for us with several possible configurations. For your web application, you'll need to configure the Django section of the file. The example below demonstrates a possible configuration for you application.
+To configure the WSGI script, navigate to the *Web* tab in PythonAnywhere's dashboard. From there, click the Web tab. Under the Code heading you can see a link to the WSGI configuration file: e.g. ``/var/www/<username>_pythonanywhere_com_wsgi.py``
+
+The good people at PythonAnywhere have set up a sample WSGI file for us with several possible configurations. For your web application, you'll need to configure the Django section of the file. The example below demonstrates a possible configuration for you application.
 
 .. code-block:: python
 	
 	# TURN ON THE VIRTUAL ENVIRONMENT FOR YOUR APPLICATION
 	activate_this = '/home/<username>/.virtualenvs/rango/bin/activate_this.py'
 	execfile(activate_this, dict(__file__=activate_this))
-
 	import os
 	import sys
-	
+
 	# ADD YOUR PROJECT TO THE PYTHONPATH FOR THE PYTHON INSTANCE
-	path = '/home/<username>/tango_with_django/tango_with_django_project'
-	
+	path = '/home/<username>/tango_with_django_17/'
 	if path not in sys.path:
 	    sys.path.append(path)
-	
+		
+	# IMPORTANTLY GO TO THE PROJECT DIR
 	os.chdir(path)
-	
+
 	# TELL DJANGO WHERE YOUR SETTINGS MODULE IS LOCATED
-	os.environ['DJANGO_SETTINGS_MODULE'] = 'tango_with_django_project.settings'
+	os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'tango_with_django_project_17.settings')
+	
+	# IMPORT THE DJANGO SETUP - NEW TO 1.7
+	import django
+	django.setup()
 	
 	# IMPORT THE DJANGO WSGI HANDLER TO TAKE CARE OF REQUESTS
 	import django.core.handlers.wsgi
 	application = django.core.handlers.wsgi.WSGIHandler()
+	
 
 Ensure that you replace ``<username>`` with your username, and update any other path settings to suit your application. You should also remove all other code from the WSGI configuration script to ensure no conflicts take place.
 
@@ -210,7 +218,7 @@ Update ``bing_search.py`` or ``keys.py`` with your own BING API Key to use the s
 
 Turning off ``DEBUG`` Mode
 ..........................
-When you application is ready to go, it's a good idea to instruct Django that your application is now hosted on a production server. To do this, open your project's ``settings.py`` file and change ``DEBUG = True`` to ``DEBUG = False``. This disables `Django's debug mode <https://docs.djangoproject.com/en/1.5/ref/settings/#debug>`_, and removes explicit error messages.
+When you application is ready to go, it's a good idea to instruct Django that your application is now hosted on a production server. To do this, open your project's ``settings.py`` file and change ``DEBUG = True`` to ``DEBUG = False``. This disables `Django's debug mode <https://docs.djangoproject.com/en/1.7/ref/settings/#debug>`_, and removes explicit error messages.
 
 Changing the value of ``DEBUG`` also means you should set the ``ALLOWED_HOSTS`` property. Failing to perform this step will make Django return ``HTTP 400 Bad Request`` errors. Alter ``ALLOWED_HOSTS`` so that it includes your PythonAnywhere subdomain like in the example below.
 
