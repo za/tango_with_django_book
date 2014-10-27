@@ -13,6 +13,20 @@ According to the `Django Tutorial  <https://docs.djangoproject.com/en/1.7/intro/
 * Tests help teams work together: they make sure your team doesn't inadvertently break your code.
 
 
+
+According to the Python Guide `<http://docs.python-guide.org/en/latest/writing/tests/>`_, there are a number of general rules you should try to follow when writing tests. Below are some main rules:
+
+* Tests should focus on one small bit of functionality
+* Tests should have a clear purpose
+* Tests should be independent. 
+* Run your tests, before you code, and before your commit and push your code.
+* Even better create a hook that tests code on push.
+* Use long and descriptive names for tests.
+
+
+.. note:: Currently this chapter provides the very basics of testing and follows a similar format to the `Django Tutorial  <https://docs.djangoproject.com/en/1.7/intro/tutorial05/>`_, with some additional notes. We hope to expand this further in the future.
+
+
 Running Tests
 -------------
 
@@ -93,11 +107,7 @@ Now lets run test:
 As we can see this test fails. This is because the model does not check whether the value is less than zero or not. Since we really want to ensure that the values are non-zero, we will need to update the model, to ensure that this requirement is fulfilled. Do this now by adding some code to the Catgegory models, ``save()`` method, that checks the value of views, and updates it accordingly.
 
 
-#TODO(leifos): add reference to forms chapter. 
-
 Once you have updated your model, you can now re-run the test, and see if your code now passes it. If not, try again.
-
-
 
 Let's try adding another test, that ensures an appropriate slug line is created i.e. one with dashes, and in lowercase. Add the following code to ``rango/tests.py``:
 
@@ -115,14 +125,79 @@ Let's try adding another test, that ensures an appropriate slug line is created 
 			self.assertEqual(cat.slug, 'random-category-string')
 
 
-Does your code work?
+Does your code still work?
 
 
 
 Testing Views
 -------------
-#TODO(leifos): Add in examples that test the output of views.
+So far we have writtent tests that focus on ensuring the integrity of the data housed in the models. Django also provides testing mechanisms to test views. It does this with a mock client, that internally makes a calls a django view via the url. In the test you have access to the response (including the html) and the context dictionary. 
+
+Let's create a test that checks that when the index page loads, it displays the message that ``There are no categories present``, when the Category model is empty. 
+
+.. code-block:: python
+
+	from django.core.urlresolvers import reverse
+
+
+	class IndexViewTests(TestCase):
+
+	    def test_index_view_with_no_categories(self):
+	        """
+	        If no questions exist, an appropriate message should be displayed.
+	        """
+	        response = self.client.get(reverse('index'))
+	        self.assertEqual(response.status_code, 200)
+	        self.assertContains(response, "There are no categories present.")
+	        self.assertQuerysetEqual(response.context['categories'], [])
+	
+
  
+First of all, the django ``TestCase`` has access to a ``client`` object, which can make requests. Here, it uses the helper function ``reverse`` to look up the url of the ``index`` page. Then it tries to get that page, where the ``response`` is stored. The test then checks a number of things: did the page load ok? Does the response, i.e. the html contain the phrase "There are no categories present.", and does the context dictionary contain an empty categories list. Recall that when you run tests, a new database is created, which by default is not populated.
+
+
+Let's now check the resulting view when categories are present. First add a helper method.
+
+
+.. code-block:: python
+
+	from rango.models import Category
+
+	def add_cat(name, views, likes):
+    	c = Category.objects.get_or_create(name=name)[0]
+    	c.views = views
+    	c.likes = likes
+    	c.save()
+    	return c
+
+
+Then add another method to the ``class IndexViewTests(TestCase)``:
+
+
+.. code-block:: python	
+
+    def test_index_view_with_categories(self):
+        """
+        If no questions exist, an appropriate message should be displayed.
+        """
+
+        add_cat('test',1,1)
+        add_cat('temp',1,1)
+        add_cat('tmp',1,1)
+        add_cat('tmp test temp',1,1)
+
+        response = self.client.get(reverse('index'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "tmp test temp")
+
+        num_cats =len(response.context['categories'])
+        self.assertEqual(num_cats , 4)
+
+
+In this test, we populate the database with four categories, and then check if the page loads, if it contains the text ``tmp test temp`` and if the number of categories is equal to 4.
+
+
+#TODO(leifos): add in some tests showing how to test different forms i.e. login etc.
 
 Testing the Rendered Page
 -------------------------
@@ -178,7 +253,13 @@ We can see from the above report that critical parts of the code have not been t
 
 Exercises
 ---------
-* Add tests the other models. 
-* Undertake  `Part Five of the official Django Tutorial  <https://docs.djangoproject.com/en/1.7/intro/tutorial05/>`_ to learn about automated testing.
+
+* Lets say that we want to extend the ``Page`` to include two additional fields, ``last_visit`` and ``first_visit`` which will be of type ``timedate``.
+	* Update the model to include these two fields
+	* Update the add page functionality, and the goto functionality.
+	* Add in a test to ensure the last visit or first visit is not in the future
+	* Add in a test to ensure that the last visit equal to or after the first visit.
+	* Run through  `Part Five of the official Django Tutorial  <https://docs.djangoproject.com/en/1.7/intro/tutorial05/>`_ to help develop these tests.
+	 
 * Check out the `tutorial on test driven development by Harry Percival <http://www.tdd-django-tutorial.com>`_.
 
