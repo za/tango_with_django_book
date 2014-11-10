@@ -13,7 +13,7 @@ As Django is a web application framework written in the Python programming langu
 
 * **A quick tutorial** - Learn Python in 10 Minutes by Stavros, http://www.korokithakis.net/tutorials/python/.
 * **The Official Python Tutorial** at http://docs.python.org/2/tutorial/.
-* **A brilliant book**: Think Python: How to Think like a Computer Scientist by Allen B. Bowney, available online at http://www.greenteapress.com/thinkpython/.
+* **A brilliant book**: Think Python: How to Think like a Computer Scientist by Allen B. Downey, available online at http://www.greenteapress.com/thinkpython/.
 * **An amazing online course**: Learn to Program, by Jennifer Campbell and Paul Gries at https://www.coursera.org/course/programming1.
 
 Using the Terminal
